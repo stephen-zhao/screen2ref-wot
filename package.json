@@ -1,0 +1,52 @@
+{
+  "name": "online.screen2ref.wot",
+  "version": "1.0.0",
+  "description": "Screen2Ref reference app for World of Tanks",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/babel src -d lib && cp lib/* public/js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephen-zhao/screen2ref-wot.git"
+  },
+  "keywords": [
+    "world of tanks",
+    "screen2ref",
+    "reference",
+    "wargaming",
+    "sepen"
+  ],
+  "author": "Stephen Zhao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stephen-zhao/screen2ref-wot/issues"
+  },
+  "homepage": "https://github.com/stephen-zhao/screen2ref-wot#readme",
+  "dependencies": {
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-core": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "eslint": "^3.7.0",
+    "eslint-plugin-react": "^6.3.0"
+  },
+  "babel": {
+    "presets": [
+      "react"
+    ],
+    "plugins": [
+      "transform-react-jsx"
+    ],
+    "ignore": [
+      ".eslintrc.js"
+    ]
+  }
+}

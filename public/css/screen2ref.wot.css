@@ -1,0 +1,103 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.4rem;
+    font-family: "Open Sans", "Arial", "sans-serif";
+    margin:0;
+    padding:0;
+    border:0;
+}
+
+.TopBar_Div {
+    position: fixed;
+    top: 0;
+    background-color: #123112;
+    color: #dbf3db;
+    width: 100%;
+    display: inline-block;
+}
+
+.PageDescription_Div {
+    margin: 1rem;
+    display: inline-block;
+}
+
+.PageDescription_SpanDesc {
+    font-size: 2.4rem;
+}
+
+.BattleTierSelector_Div {
+    margin: 1rem;
+    display: inline-block;
+    float: right;
+}
+
+.BattleTierSelector_SpanLabel {
+    font-size: 2.4rem;
+}
+
+.BattleTierSelector_Select {
+    font-size: 2.4rem;
+}
+
+.MainView_Div {
+    margin-top: 5rem;
+}
+
+.TableOfTanks_Table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.TableOfTanksRowNation_TR:nth-child(even) {
+    background-color: #e5e5e5;
+}
+
+.TableOfTanksRowNation_TR:hover {
+    background-color: #d9ffd9;
+}
+
+.TableOfTanksColumnClass_TD {
+    border-right: 1px solid #123112;
+    border-left: 1px solid #123112;
+}
+
+.TableOfTanks_THTankClassLabel {
+    font-size: 2rem;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+.TableOfTanksRowNation_TDNationLabelDiv {
+    position: relative;
+    width: 8em;
+    height: 5.2rem;
+}
+
+.TableOfTanksRowNation_TDNationLabelImg {
+    opacity: 0.5;
+    position: absolute;
+    display: block;
+    right: 0;
+}
+
+.TableOfTanksRowNation_TDNationLabelSpan {
+    text-align: right;
+    font-size: 1.6rem;
+    font-weight: 700;
+    position: absolute;
+    display: block;
+    right: 0;
+    top: 1.5rem;
+    transform: scale(1.0,2.0);
+}
+
+.ListOfTanksWAttributes_Table {
+    font-size: 1rem;
+}
+
+.TankWAttributes_VehicleName {
+    font-weight: 700;
+}

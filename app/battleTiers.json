@@ -1,0 +1,551 @@
+{
+  "battleTiers": [
+    {
+      "battleTier": 1,
+      "vehicles": [
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 1
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 1
+        }
+      ]
+    },
+    {
+      "battleTier": 2,
+      "vehicles": [
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 1
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 1
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 2
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 2
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 2
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 2
+        }
+      ]
+    },
+    {
+      "battleTier": 3,
+      "vehicles": [
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 2
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 2
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 2
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 2
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 3
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 3
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 3
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 3
+        }
+      ]
+    },
+    {
+      "battleTier": 4,
+      "vehicles": [
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 3
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 3
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 3
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 3
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 4
+        }
+      ]
+    },
+    {
+      "battleTier": 5,
+      "vehicles": [
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 3
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 3
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 3
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 3
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 5
+        }
+      ]
+    },
+    {
+      "battleTier": 6,
+      "vehicles": [
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 6
+        }
+      ]
+    },
+    {
+      "battleTier": 7,
+      "vehicles": [
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 7
+        }
+      ]
+    },
+    {
+      "battleTier": 8,
+      "vehicles": [
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 4
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 8
+        }
+      ]
+    },
+    {
+      "battleTier": 9,
+      "vehicles": [
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 5
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 9
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 9
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 9
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 9
+        }
+      ]
+    },
+    {
+      "battleTier": 10,
+      "vehicles": [
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 6
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 9
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 9
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 9
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 9
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 10
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 10
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 10
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 10
+        }
+      ]
+    },
+    {
+      "battleTier": 11,
+      "vehicles": [
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 7
+        },
+        {
+          "vehicleClass": "light",
+          "vehicleTier": 8
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 9
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 9
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 9
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 9
+        },
+        {
+          "vehicleClass": "medium",
+          "vehicleTier": 10
+        },
+        {
+          "vehicleClass": "heavy",
+          "vehicleTier": 10
+        },
+        {
+          "vehicleClass": "spg",
+          "vehicleTier": 10
+        },
+        {
+          "vehicleClass": "td",
+          "vehicleTier": 10
+        }
+      ]
+    }
+  ]
+}
