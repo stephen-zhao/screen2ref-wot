@@ -1,0 +1,11 @@
+branch-defaults:
+  develop:
+    environment: screen2ref-wot-env
+    group_suffix: null
+global:
+  application_name: online.screen2ref.wot
+  default_ec2_keyname: null
+  default_platform: node.js
+  default_region: us-west-2
+  profile: eb-cli
+  sc: git
