@@ -365,7 +365,7 @@ var TankWAttributes = React.createClass({
     var reloadTimePretty = Math.floor(reloadTimeBy90 / 100) + "." + (((reloadTimeBy90 % 100) < 10) ? "0" : "") + (reloadTimeBy90 % 100 || "0") + "s"
     return (
       <div className="TankWAttributes_Div">
-        <span className="TankWAttributes_VehicleName">{this.props.vehicle.short_name} </span>
+        <span className="TankWAttributes_VehicleName">{this.props.vehicle.short_name}</span><br/>
         <span className="TankWAttributes_VehicleReload">{reloadTimePretty}</span><br/>
         <span className="TankWAttributes_VehicleArmorTurret">{turretArmorPretty || "N/A"}</span><br/>
         <span className="TankWAttributes_VehicleArmorHull">{hullArmorPretty || "N/A"}</span>

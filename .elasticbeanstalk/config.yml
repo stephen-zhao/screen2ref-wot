@@ -1,10 +1,10 @@
 branch-defaults:
   develop:
-    environment: screen2ref-wot-env
+    environment: screen2ref-wot-dev
     group_suffix: null
 global:
   application_name: online.screen2ref.wot
-  default_ec2_keyname: null
+  default_ec2_keyname: aws-eb
   default_platform: node.js
   default_region: us-west-2
   profile: eb-cli

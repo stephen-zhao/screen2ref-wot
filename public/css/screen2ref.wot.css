@@ -62,6 +62,7 @@ body {
 .TableOfTanksColumnClass_TD {
     border-right: 1px solid #123112;
     border-left: 1px solid #123112;
+    vertical-align: top;
 }
 
 .TableOfTanks_THTankClassLabel {
@@ -72,7 +73,7 @@ body {
 
 .TableOfTanksRowNation_TDNationLabelDiv {
     position: relative;
-    width: 8em;
+    width: 6em;
     height: 5.2rem;
 }
 
@@ -96,6 +97,17 @@ body {
 
 .ListOfTanksWAttributes_Table {
     font-size: 1rem;
+}
+
+.ListOfTanksWAttributes_TD {
+    vertical-align: top;
+}
+
+.TankWAttributes_Div {
+    width: 6rem;
+    height: 5rem;
+    letter-spacing: -0.8px;
+    line-height: 110%;
 }
 
 .TankWAttributes_VehicleName {
