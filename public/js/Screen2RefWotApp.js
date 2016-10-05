@@ -138,7 +138,7 @@ var PageDescription = React.createClass({
       React.createElement(
         "span",
         { className: "PageDescription_SpanDesc" },
-        "Reload | Alpha | Armor"
+        "Reload | Armor"
       )
     );
   }

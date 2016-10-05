@@ -134,7 +134,7 @@ var PageDescription = React.createClass({
   render: function() {
     return (
       <div className="PageDescription_Div">
-        <span className="PageDescription_SpanDesc">Reload | Alpha | Armor</span>
+        <span className="PageDescription_SpanDesc">Reload | Armor</span>
       </div>
     );
   }
