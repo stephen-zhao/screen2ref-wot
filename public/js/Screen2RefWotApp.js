@@ -109,8 +109,21 @@ var TopBar = React.createClass({
     return React.createElement(
       "div",
       { className: "TopBar_Div" },
+      React.createElement(AppLogo, null),
       React.createElement(PageDescription, null),
       React.createElement(BattleTierSelector, { battleTier: this.props.battleTier, onUserInput: this.props.onUserInput })
+    );
+  }
+});
+
+var AppLogo = React.createClass({
+  displayName: "AppLogo",
+
+  render: function () {
+    return React.createElement(
+      "div",
+      { className: "AppLogo_Div" },
+      React.createElement("img", { className: "AppLogo_Img", src: "./img/Logo-wot.png" })
     );
   }
 });
@@ -125,7 +138,7 @@ var PageDescription = React.createClass({
       React.createElement(
         "span",
         { className: "PageDescription_SpanDesc" },
-        "Reload & Armor"
+        "Reload | Alpha | Armor"
       )
     );
   }
@@ -408,9 +421,10 @@ var TankWAttributes = React.createClass({
     }
     var reloadTimeBy90 = Math.floor(this.props.vehicle.default_profile.gun.reload_time * 90);
     var reloadTimePretty = Math.floor(reloadTimeBy90 / 100) + "." + (reloadTimeBy90 % 100 < 10 ? "0" : "") + (reloadTimeBy90 % 100 || "0") + "s";
+    var divClassNames = "TankWAttributes_Div " + (this.props.vehicle.is_premium ? "TankIsPremium" : "");
     return React.createElement(
       "div",
-      { className: "TankWAttributes_Div" },
+      { className: divClassNames },
       React.createElement(
         "span",
         { className: "TankWAttributes_VehicleName" },

@@ -13,15 +13,37 @@ body {
 .TopBar_Div {
     position: fixed;
     top: 0;
+    height: 5rem;
     background-color: #123112;
     color: #dbf3db;
     width: 100%;
-    display: inline-block;
+    display: block;
+}
+
+.AppLogo_Div {
+    display: block;
+    margin: 0rem;
+    padding: 0;
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+}
+
+.AppLogo_Img {
+    display: block;
+    width: 6rem;
+    height: auto;
+    position: absolute;
+    left: 1rem;
+    top: -0.8rem;
 }
 
 .PageDescription_Div {
     margin: 1rem;
-    display: inline-block;
+    display: block;
+    position: absolute;
+    left: 8rem;
+    top: -0.3rem;
 }
 
 .PageDescription_SpanDesc {
@@ -30,8 +52,10 @@ body {
 
 .BattleTierSelector_Div {
     margin: 1rem;
-    display: inline-block;
-    float: right;
+    display: block;
+    position: absolute;
+    right: 0rem;
+    top: -0.3rem;
 }
 
 .BattleTierSelector_SpanLabel {
@@ -108,6 +132,10 @@ body {
     height: 5rem;
     letter-spacing: -0.8px;
     line-height: 110%;
+}
+
+.TankIsPremium {
+    color: #b1750c;
 }
 
 .TankWAttributes_VehicleName {

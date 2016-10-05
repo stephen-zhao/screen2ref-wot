@@ -112,8 +112,19 @@ var TopBar = React.createClass({
   render: function() {
     return (
       <div className="TopBar_Div">
+        <AppLogo/>
         <PageDescription/>
         <BattleTierSelector battleTier={this.props.battleTier} onUserInput={this.props.onUserInput}/>
+      </div>
+    );
+  }
+});
+
+var AppLogo = React.createClass({
+  render: function() {
+    return (
+      <div className="AppLogo_Div">
+        <img className="AppLogo_Img" src="./img/Logo-wot.png"/>
       </div>
     );
   }
@@ -123,7 +134,7 @@ var PageDescription = React.createClass({
   render: function() {
     return (
       <div className="PageDescription_Div">
-        <span className="PageDescription_SpanDesc">Reload & Armor</span>
+        <span className="PageDescription_SpanDesc">Reload | Alpha | Armor</span>
       </div>
     );
   }
@@ -363,8 +374,9 @@ var TankWAttributes = React.createClass({
     }
     var reloadTimeBy90 = Math.floor(this.props.vehicle.default_profile.gun.reload_time * 90);
     var reloadTimePretty = Math.floor(reloadTimeBy90 / 100) + "." + (((reloadTimeBy90 % 100) < 10) ? "0" : "") + (reloadTimeBy90 % 100 || "0") + "s"
+    var divClassNames = "TankWAttributes_Div " + (this.props.vehicle.is_premium ? "TankIsPremium" : "");
     return (
-      <div className="TankWAttributes_Div">
+      <div className={divClassNames}>
         <span className="TankWAttributes_VehicleName">{this.props.vehicle.short_name}</span><br/>
         <span className="TankWAttributes_VehicleReload">{reloadTimePretty}</span><br/>
         <span className="TankWAttributes_VehicleArmorTurret">{turretArmorPretty || "N/A"}</span><br/>
