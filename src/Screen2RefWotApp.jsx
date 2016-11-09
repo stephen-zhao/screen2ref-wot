@@ -30,6 +30,14 @@ var Screen2RefWotApp = React.createClass({
     }
   ],
 
+  moduleTypes: [
+    { "moduleName": "suspension", "nodeName": "vehicleChassis" },
+    { "moduleName": "turret", "nodeName": "vehicleTurret" },
+    { "moduleName": "gun", "nodeName": "vehicleGun" },
+    { "moduleName": "engine", "nodeName": "vehicleEngine" },
+    { "moduleName": "radio", "nodeName": "vehicleRadio" }
+  ],
+
   getInitialState: function() {
     return {
       battleTier: 11,
@@ -69,16 +77,49 @@ var Screen2RefWotApp = React.createClass({
     });
   },
 
+  getTopModuleId: function(vehicle, module_id, moduleType) {
+    // LAZY JUST KILL IT IF MODULE_ID IS NULL, I DON"T WANT TO DEAL WITH THIS
+    if (module_id == null) return null;
+    // if no more next module, we are at top module, check if correct type
+    if (!vehicle.modules_tree[module_id.toString()].next_modules) {
+      if (moduleType.nodeName == vehicle.modules_tree[module_id.toString()].type) {
+        return module_id;
+      }
+      else {
+        return null;
+      }    
+    }
+    // else for each module in the tree, rerun the search
+    else {
+      for (var i in vehicle.modules_tree[module_id.toString()].next_modules) {
+        res = this.getTopModuleId(vehicle, vehicle.modules_tree[module_id.toString()].next_modules[i], moduleType);
+        if (res != null) {
+          return res;
+        }
+      }
+      // if everything we visited was not the correct type (-1), check self
+      if (moduleType.nodeName == vehicle.modules_tree[module_id.toString()].type) {
+        return module_id;
+      }
+      else {
+        return null;
+      }
+    }
+  },
+
   render: function() {
+    // Create list to hold filtered & augmented vehicle data
     var vehicles = [];
+
+    // Vehicle filtering by battle tier
     for (var vehicle in this.state.tanksData.data) {
       var wgVehicleClass = '';
       var wgVehicleTier = this.state.tanksData.data[vehicle].tier;
       var wgVehicleId = this.state.tanksData.data[vehicle].tank_id;
       // translate wg tank class names to local names
-      for(var tankClassTransator in this.tankClasses) {
-        if (this.tankClasses[tankClassTransator].wgName == this.state.tanksData.data[vehicle].type) {
-          wgVehicleClass = this.tankClasses[tankClassTransator].localName;
+      for(var tankClassTranslator in this.tankClasses) {
+        if (this.tankClasses[tankClassTranslator].wgName == this.state.tanksData.data[vehicle].type) {
+          wgVehicleClass = this.tankClasses[tankClassTranslator].localName;
         }
       }
       // check for special tanks
@@ -95,10 +136,24 @@ var Screen2RefWotApp = React.createClass({
         // check if the vehicle's tier and class combination exists
         if (battleTierVehicles[vehicleTypeInBattleTier].vehicleClass == wgVehicleClass &&
             battleTierVehicles[vehicleTypeInBattleTier].vehicleTier == wgVehicleTier) {
-          vehicles.push(this.state.tanksData.data[vehicle])
+          vehicles.push(this.state.tanksData.data[vehicle]);
         }
       }
     }
+
+    // Augment vehicle data with top config data
+    for (var i in vehicles) {
+      var defaultModules = {};
+      for (j in this.moduleTypes) {
+        defaultModules[this.moduleTypes[j].moduleName] = vehicles[i].default_profile.modules[this.moduleTypes[j].moduleName + "_id"];
+      }
+      var topModules = {};
+      for (j in this.moduleTypes) {
+        topModules[this.moduleTypes[j].moduleName] = this.getTopModuleId(vehicles[i], defaultModules[this.moduleTypes[j].moduleName], this.moduleTypes[j]);
+      }
+      vehicles[i].topModules = topModules;
+    }
+
     return (
       <div className="Screen2RefWotAppDiv">
         <TopBar battleTier={this.state.battleTier} onUserInput={this.handleUserInput}/>
@@ -304,6 +359,31 @@ var TableOfTanks = React.createClass({
 });
 
 var TableOfTanksRowNation = React.createClass({
+
+  // componentDidMount: function() {
+  //   this.wgapiVehiclesReq = $.get('https://api.worldoftanks.com/wot/encyclopedia/vehicles/?application_id=7c6bb9f5b4ebb263c4fecfe190103f40', function(res) {
+  //     this.setState({
+  //       nationRadios: res
+  //     });
+  //   }.bind(this));
+  //   this.localBattleTiersReq = $.get('/api/battleTiers', function(res) {
+  //     this.setState({
+  //       battleTierData: res
+  //     });
+  //   }.bind(this));
+  //   this.localBattleTiersSpecialReq = $.get('/api/battleTiersSpecial', function(res) {
+  //     this.setState({
+  //       battleTierSpecialData: res
+  //     });
+  //   }.bind(this));
+  // },
+
+  // componentWillUnmount: function() {
+  //   this.wgapiVehiclesReq.abort();
+  //   this.localBattleTiersReq.abort();
+  //   this.localBattleTiersSpecialReq.abort();
+  // },
+
   render: function() {
     const TDNationLabelImgSrc = './img/' + this.props.nation.flagImg;
     const tankClassesAsTableOfTanksColumnClasses = this.props.tankClasses.map(tankClass =>
@@ -381,6 +461,7 @@ var TankWAttributes = React.createClass({
         <span className="TankWAttributes_VehicleReload">{reloadTimePretty}</span><br/>
         <span className="TankWAttributes_VehicleArmorTurret">{turretArmorPretty || "N/A"}</span><br/>
         <span className="TankWAttributes_VehicleArmorHull">{hullArmorPretty || "N/A"}</span>
+        <span className="TankWAttributes_VehicleArmorHull">GUN ID: {this.props.vehicle.topModules.gun}</span>
       </div>
     );
   }

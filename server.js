@@ -1,30 +1,15 @@
 // set defaults for environment variables
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var port = process.env.PORT || 3000;
 
 // imports
+var config = require('./app/config.js');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var express = require('express');
-
-// global configuration
-var globalConfig = {
-  port: port,
-  wgAppID: '7c6bb9f5b4ebb263c4fecfe190103f40'
-  // db: process.env.MONGOLAB_URI || 'mongodb://SAMPLE.mongolab.com:SAMPLE/SAMPLE',
-  // dbUser: process.env.DB_USER || '',
-  // dbPass: process.env.DB_PASS || '',
-  // facebook: {
-  //   clientID: 'SAMPLE',
-  //   clientSecret: 'SAMPLE',
-  //   callbackURL: 'http://localhost:'+ port +'/oauth/facebook/callback'
-  // },
-  // twitter: {
-  //   clientID: 'SAMPLE',
-  //   clientSecret: 'SAMPLE',
-  //   callbackURL: 'http://localhost:'+ port +'/oauth/twitter/callback'
-  // }
-};
+var mysql = require('mysql');
+var http = require('http');
+var https = require('https');
+var wotproc = require('./app/WoTProcessing.js');
 
 // express init
 var app = express();
@@ -54,11 +39,47 @@ app.get('/api/battleTiersSpecial', function(req, res) {
   //   res.json(JSON.parse(data));
   // });
 });
+app.get('/api/vehicleTopConfigs', function(req, res) {
+  var connection = mysql.createConnection(config.dbConnectionOptions);
+  connection.connect();
+  var sql = 
+      'SELECT profile_data FROM vehicle_profile';
+    var values = [tank_id, profile_id, profile_data];
+    connection.query(sql, [
+        values, 
+        mysql.escape(values[0]), 
+        mysql.escape(values[2])
+        ], 
+    function(err, res) {
+      if (err) throw err;
+      connection.end(function(err) {
+        console.log('Added vehicle profile', profile_id,'to database.');
+      });
+    });
+    // TODO: make this API endpoint work, then make client pull from this API endpoint
+});
 // TODO: more app routes
 
+
+if (config.updateDbOnStart) {
+  console.log('UPDATE_DB flag set: Updating database of vehicle configurations.')
+  var wgWotVehicleApi = 'https://api.worldoftanks.com/wot/encyclopedia/vehicles/'+
+    '?application_id='+config.wgAppID;
+  console.log('Making GET request to:', wgWotVehicleApi);
+  // get vehicles from WG API & process them
+  https.get(wgWotVehicleApi, function(res) {
+    console.log('statusCode:', res.statusCode);
+    console.log('headers:', res.headers);
+    var body = '';
+    res.on('data', (d) => { body += d; });
+    res.on('end', () => { wotproc.processVehicles(JSON.parse(body), true); });
+  });
+}
+
+
 // start listen
-app.listen(globalConfig.port);
-console.log(process.env.NODE_ENV + ' server running at http://localhost:' + globalConfig.port);
+app.listen(config.port);
+console.log(process.env.NODE_ENV + ' server running at http://localhost:' + config.port);
 
 // export for modularity
 module.exports = app;
