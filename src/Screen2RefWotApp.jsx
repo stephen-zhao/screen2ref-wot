@@ -42,6 +42,7 @@ var Screen2RefWotApp = React.createClass({
     return {
       battleTier: 11,
       tanksData: {},
+      vehicleProfilesData: {},
       battleTierData: {},
       battleTierSpecialData: {}
     }
@@ -51,6 +52,11 @@ var Screen2RefWotApp = React.createClass({
     this.wgapiVehiclesReq = $.get('https://api.worldoftanks.com/wot/encyclopedia/vehicles/?application_id=7c6bb9f5b4ebb263c4fecfe190103f40', function(res) {
       this.setState({
         tanksData: res
+      });
+    }.bind(this));
+    this.s2rapiVehicleProfilesReq = $.get('/api/vehicleTopConfigs', function(res) {
+      this.setState({
+        vehicleProfilesData: res
       });
     }.bind(this));
     this.localBattleTiersReq = $.get('/api/battleTiers', function(res) {
@@ -77,35 +83,35 @@ var Screen2RefWotApp = React.createClass({
     });
   },
 
-  getTopModuleId: function(vehicle, module_id, moduleType) {
-    // LAZY JUST KILL IT IF MODULE_ID IS NULL, I DON"T WANT TO DEAL WITH THIS
-    if (module_id == null) return null;
-    // if no more next module, we are at top module, check if correct type
-    if (!vehicle.modules_tree[module_id.toString()].next_modules) {
-      if (moduleType.nodeName == vehicle.modules_tree[module_id.toString()].type) {
-        return module_id;
-      }
-      else {
-        return null;
-      }    
-    }
-    // else for each module in the tree, rerun the search
-    else {
-      for (var i in vehicle.modules_tree[module_id.toString()].next_modules) {
-        res = this.getTopModuleId(vehicle, vehicle.modules_tree[module_id.toString()].next_modules[i], moduleType);
-        if (res != null) {
-          return res;
-        }
-      }
-      // if everything we visited was not the correct type (-1), check self
-      if (moduleType.nodeName == vehicle.modules_tree[module_id.toString()].type) {
-        return module_id;
-      }
-      else {
-        return null;
-      }
-    }
-  },
+  // getTopModuleId: function(vehicle, module_id, moduleType) {
+  //   // LAZY JUST KILL IT IF MODULE_ID IS NULL, I DON"T WANT TO DEAL WITH THIS
+  //   if (module_id == null) return null;
+  //   // if no more next module, we are at top module, check if correct type
+  //   if (!vehicle.modules_tree[module_id.toString()].next_modules) {
+  //     if (moduleType.nodeName == vehicle.modules_tree[module_id.toString()].type) {
+  //       return module_id;
+  //     }
+  //     else {
+  //       return null;
+  //     }    
+  //   }
+  //   // else for each module in the tree, rerun the search
+  //   else {
+  //     for (var i in vehicle.modules_tree[module_id.toString()].next_modules) {
+  //       res = this.getTopModuleId(vehicle, vehicle.modules_tree[module_id.toString()].next_modules[i], moduleType);
+  //       if (res != null) {
+  //         return res;
+  //       }
+  //     }
+  //     // if everything we visited was not the correct type (-1), check self
+  //     if (moduleType.nodeName == vehicle.modules_tree[module_id.toString()].type) {
+  //       return module_id;
+  //     }
+  //     else {
+  //       return null;
+  //     }
+  //   }
+  // },
 
   render: function() {
     // Create list to hold filtered & augmented vehicle data
@@ -141,17 +147,9 @@ var Screen2RefWotApp = React.createClass({
       }
     }
 
-    // Augment vehicle data with top config data
+    //Augment vehicle data with top profile data
     for (var i in vehicles) {
-      var defaultModules = {};
-      for (j in this.moduleTypes) {
-        defaultModules[this.moduleTypes[j].moduleName] = vehicles[i].default_profile.modules[this.moduleTypes[j].moduleName + "_id"];
-      }
-      var topModules = {};
-      for (j in this.moduleTypes) {
-        topModules[this.moduleTypes[j].moduleName] = this.getTopModuleId(vehicles[i], defaultModules[this.moduleTypes[j].moduleName], this.moduleTypes[j]);
-      }
-      vehicles[i].topModules = topModules;
+      vehicles[i].top_profile = this.state.vehicleProfilesData[vehicles[i].tank_id.toString()];
     }
 
     return (
@@ -444,16 +442,16 @@ var ListOfTanksWAttributes = React.createClass({
 
 var TankWAttributes = React.createClass({
   render: function() {
-    if (this.props.vehicle.default_profile.armor.turret != null) {
-      var turretArmor = this.props.vehicle.default_profile.armor.turret;
+    if (this.props.vehicle.top_profile.armor.turret != null) {
+      var turretArmor = this.props.vehicle.top_profile.armor.turret;
       var turretArmorPretty = turretArmor.front + "/" + turretArmor.sides + "/" + turretArmor.rear;
     }
-    if (this.props.vehicle.default_profile.armor.hull != null) {
-      var hullArmor = this.props.vehicle.default_profile.armor.hull;
+    if (this.props.vehicle.top_profile.armor.hull != null) {
+      var hullArmor = this.props.vehicle.top_profile.armor.hull;
       var hullArmorPretty = hullArmor.front + "/" + hullArmor.sides + "/" + hullArmor.rear;
     }
-    var reloadTimeBy90 = Math.floor(this.props.vehicle.default_profile.gun.reload_time * 90);
-    var reloadTimePretty = Math.floor(reloadTimeBy90 / 100) + "." + (((reloadTimeBy90 % 100) < 10) ? "0" : "") + (reloadTimeBy90 % 100 || "0") + "s"
+    var reloadTimeEffectiveBy100 = Math.floor(this.props.vehicle.top_profile.gun.reload_time * 8750000 / (375*110+50000) * 0.9);
+    var reloadTimePretty = Math.floor(reloadTimeEffectiveBy100 / 100) + "." + (((reloadTimeEffectiveBy100 % 100) < 10) ? "0" : "") + (reloadTimeEffectiveBy100 % 100 || "0") + "s"
     var divClassNames = "TankWAttributes_Div " + (this.props.vehicle.is_premium ? "TankIsPremium" : "");
     return (
       <div className={divClassNames}>
@@ -461,7 +459,6 @@ var TankWAttributes = React.createClass({
         <span className="TankWAttributes_VehicleReload">{reloadTimePretty}</span><br/>
         <span className="TankWAttributes_VehicleArmorTurret">{turretArmorPretty || "N/A"}</span><br/>
         <span className="TankWAttributes_VehicleArmorHull">{hullArmorPretty || "N/A"}</span>
-        <span className="TankWAttributes_VehicleArmorHull">GUN ID: {this.props.vehicle.topModules.gun}</span>
       </div>
     );
   }

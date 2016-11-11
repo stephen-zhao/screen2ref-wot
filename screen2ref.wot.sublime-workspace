@@ -4,12 +4,16 @@
 		"selected_items":
 		[
 			[
+				"defa",
+				"defaultModules"
+			],
+			[
 				"backgro",
 				"background-color"
 			],
 			[
 				"for",
-				"for	for (…) {…}"
+				"for\tfor (…) {…}"
 			]
 		]
 	},
@@ -19,7 +23,59 @@
 			"file": "server.js",
 			"settings":
 			{
-				"buffer_size": 1777,
+				"buffer_size": 2606,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/config.js",
+			"settings":
+			{
+				"buffer_size": 390,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/WoTProcessing.js",
+			"settings":
+			{
+				"buffer_size": 7598,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/util.js",
+			"settings":
+			{
+				"buffer_size": 296,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Screen2RefWotApp.jsx",
+			"settings":
+			{
+				"buffer_size": 15035,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 1259,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Stephen/Desktop/joeIsBae",
+			"settings":
+			{
+				"buffer_size": 266,
 				"line_ending": "Windows"
 			}
 		},
@@ -40,27 +96,11 @@
 			}
 		},
 		{
-			"file": "src/Screen2RefWotApp.jsx",
-			"settings":
-			{
-				"buffer_size": 12031,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "public/index.html",
 			"settings":
 			{
 				"buffer_size": 705,
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/js/Screen2RefWotApp.js",
-			"settings":
-			{
-				"buffer_size": 13820,
-				"line_ending": "Unix"
 			}
 		},
 		{
@@ -206,13 +246,14 @@
 	"expanded_folders":
 	[
 		"/D/projects/online.screen2ref.wot",
-		"/D/projects/online.screen2ref.wot/public",
-		"/D/projects/online.screen2ref.wot/public/css",
-		"/D/projects/online.screen2ref.wot/public/js",
-		"/D/projects/online.screen2ref.wot/src"
+		"/D/projects/online.screen2ref.wot/app",
+		"/D/projects/online.screen2ref.wot/lib"
 	],
 	"file_history":
 	[
+		"/D/projects/online.screen2ref.wot/lib/Screen2RefWotApp.js",
+		"/D/projects/online.screen2ref.wot/app/config.js",
+		"/D/projects/online.screen2ref.wot/app/WoTProcessing.js",
 		"/C/Users/Stephen/Desktop/joeIsBae",
 		"/D/projects/zhaostephen_v0.2/server.js",
 		"/D/projects/online.screen2ref.wot/.elasticbeanstalk/config.yml",
@@ -337,10 +378,7 @@
 		"/D/projects/SZXT77_modpack/develop/0.9.13.4/part-xvm/res_mods/configs/xvm/szxt77_xvm_config/playersPanel.xc",
 		"/D/projects/SZXT77_modpack/develop/0.9.13.4/part-xvm/res_mods/configs/xvm/szxt77_xvm_config/alpha.xc",
 		"/D/projects/SZXT77_modpack/develop/part-xvm/res_mods/configs/xvm/szxt77_xvm_config/playersPanel.xc",
-		"/D/projects/SZXT77_modpack/release/SZXT77_modpack_0.9.14.1/res_mods/configs/xvm/szxt77_xvm_config/playersPanel.xc",
-		"/D/projects/SZXT77_modpack/develop/part-autoaim/res_mods/0.9.14/scripts/client/gui/mods/mod_autoaim_indicator.json",
-		"/D/projects/SZXT77_modpack/develop/part-autoaim/res_mods/0.9.14/scripts/client/gui/mods/mod_autoaim_indicator.pyc",
-		"/C/Users/Stephen/AppData/Roaming/Sublime Text 3/Packages/User/ColorHighlighter.sublime-settings"
+		"/D/projects/SZXT77_modpack/release/SZXT77_modpack_0.9.14.1/res_mods/configs/xvm/szxt77_xvm_config/playersPanel.xc"
 	],
 	"find":
 	{
@@ -358,6 +396,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"module",
+			"modules",
 			"battleTierN",
 			"51457",
 			"tab",
@@ -408,7 +448,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -417,28 +457,33 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1777,
+						"buffer_size": 2606,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1530,
-								1530
+								1772,
+								1772
 							]
 						],
 						"settings":
 						{
+							"color_helper.box_height": 17,
+							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"color_helper.file_palette":
 							[
 							],
+							"color_helper.preview_meta":
+							{
+							},
 							"color_helper.scan":
 							{
 								"current_ext": ".js",
 								"current_syntax": "Babel/JavaScript (Babel)",
 								"enabled": false,
-								"last_updated": 1475631753.18
+								"last_updated": 1478667596.93
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
@@ -446,14 +491,277 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 648.0,
+						"translation.y": 544.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/config.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 390,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 17,
+							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"current_ext": ".js",
+								"current_syntax": "Babel/JavaScript (Babel)",
+								"enabled": false,
+								"last_updated": 1478667596.93
+							},
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/WoTProcessing.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7598,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								937,
+								1472
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 17,
+							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"current_ext": ".js",
+								"current_syntax": "Babel/JavaScript (Babel)",
+								"enabled": false,
+								"last_updated": 1478667596.93
+							},
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 114.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/util.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 296,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								294,
+								294
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 17,
+							"color_helper.color_scheme": "Packages/User/SublimeLinter/Material Twilight (SL).tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"current_ext": ".js",
+								"current_syntax": "Babel/JavaScript (Babel)",
+								"enabled": false,
+								"last_updated": 1478667596.93
+							},
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/Screen2RefWotApp.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15035,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2420,
+								2420
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 17,
+							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"current_ext": ".jsx",
+								"current_syntax": "Babel/JavaScript (Babel)",
+								"enabled": false,
+								"last_updated": 1478667596.93
+							},
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 597.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 5,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1259,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1003,
+								1003
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 15,
+							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.scan":
+							{
+								"current_ext": ".json",
+								"current_syntax": "Materialize/Langs/npm JSON",
+								"enabled": false,
+								"last_updated": 1478653649.78
+							},
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
+							"syntax": "Packages/Materialize/Langs/npm JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 124.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/C/Users/Stephen/Desktop/joeIsBae",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 266,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								126,
+								126
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 19,
+							"color_helper.color_scheme": "Packages/User/SublimeLinter/Material Twilight (SL).tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.scan":
+							{
+								"current_ext": "",
+								"current_syntax": "Text/Plain text",
+								"enabled": false,
+								"last_updated": 1478569747.69
+							},
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
 					"file": "app/battleTiersSpecial.js",
 					"semi_transient": false,
 					"settings":
@@ -465,12 +773,14 @@
 						"selection":
 						[
 							[
-								186,
-								186
+								0,
+								14
 							]
 						],
 						"settings":
 						{
+							"color_helper.box_height": 15,
+							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"color_helper.file_palette":
 							[
 							],
@@ -479,7 +789,7 @@
 								"current_ext": ".js",
 								"current_syntax": "Babel/JavaScript (Babel)",
 								"enabled": false,
-								"last_updated": 1475381915.59
+								"last_updated": 1478653649.78
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
@@ -490,11 +800,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 8,
 					"file": "app/battleTiers.json",
 					"semi_transient": false,
 					"settings":
@@ -512,6 +822,8 @@
 						],
 						"settings":
 						{
+							"color_helper.box_height": 15,
+							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"color_helper.file_palette":
 							[
 							],
@@ -520,7 +832,7 @@
 								"current_ext": ".json",
 								"current_syntax": "JavaScript/JSON",
 								"enabled": false,
-								"last_updated": 1475266244.47
+								"last_updated": 1478569747.69
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
@@ -528,55 +840,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 11880.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "src/Screen2RefWotApp.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 12031,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6144,
-								6144
-							]
-						],
-						"settings":
-						{
-							"color_helper.file_palette":
-							[
-							],
-							"color_helper.scan":
-							{
-								"current_ext": ".jsx",
-								"current_syntax": "Babel/JavaScript (Babel)",
-								"enabled": false,
-								"last_updated": 1475763408.29
-							},
-							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2952.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
+					"buffer": 9,
 					"file": "public/index.html",
 					"semi_transient": false,
 					"settings":
@@ -636,51 +907,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "public/js/Screen2RefWotApp.js",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 13820,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"color_helper.file_palette":
-							[
-							],
-							"color_helper.scan":
-							{
-								"current_ext": ".js",
-								"current_syntax": "Babel/JavaScript (Babel)",
-								"enabled": false,
-								"last_updated": 1475728092.8
-							},
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 1944.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
+					"buffer": 10,
 					"file": "public/css/screen2ref.wot.css",
 					"semi_transient": false,
 					"settings":
@@ -744,14 +975,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 720.0,
+						"translation.y": 658.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 11,
 					"file": ".gitignore",
 					"semi_transient": false,
 					"settings":
@@ -769,6 +1000,8 @@
 						],
 						"settings":
 						{
+							"color_helper.box_height": 15,
+							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"color_helper.file_palette":
 							[
 							],
@@ -777,7 +1010,7 @@
 								"current_ext": "",
 								"current_syntax": "Materialize/Langs/Git",
 								"enabled": false,
-								"last_updated": 1475631753.18
+								"last_updated": 1478653649.78
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Materialize/Langs/Git.tmLanguage"
@@ -786,11 +1019,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 12,
 					"file": "/D/projects/react-tutorial-master/server.js",
 					"semi_transient": false,
 					"settings":
@@ -827,11 +1060,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 13,
 					"file": "/D/projects/react-tutorial-master/public/index.html",
 					"semi_transient": false,
 					"settings":
@@ -891,7 +1124,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 13,
 					"type": "text"
 				}
 			]
@@ -899,7 +1132,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 32.0
+		"height": 27.0
 	},
 	"input":
 	{
@@ -936,7 +1169,7 @@
 	"project": "screen2ref.wot.sublime-project",
 	"replace":
 	{
-		"height": 60.0
+		"height": 50.0
 	},
 	"save_all_on_build": true,
 	"select_file":

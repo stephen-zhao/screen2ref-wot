@@ -28,10 +28,12 @@ module.exports = {
       +
       '  ON DUPLICATE KEY UPDATE tank_id=?, profile_data=?';
     var values = [tank_id, profile_id, profile_data];
+    var escapedValues2 = mysql.escape(values[2]);
+    console.log(escapedValues2);
     connection.query(sql, [
         values, 
         mysql.escape(values[0]), 
-        mysql.escape(values[2])
+        profile_data
         ], 
     function(err, res) {
       if (err) throw err;

@@ -43,24 +43,25 @@ app.get('/api/vehicleTopConfigs', function(req, res) {
   var connection = mysql.createConnection(config.dbConnectionOptions);
   connection.connect();
   var sql = 
-      'SELECT profile_data FROM vehicle_profile';
-    var values = [tank_id, profile_id, profile_data];
-    connection.query(sql, [
-        values, 
-        mysql.escape(values[0]), 
-        mysql.escape(values[2])
-        ], 
-    function(err, res) {
-      if (err) throw err;
-      connection.end(function(err) {
-        console.log('Added vehicle profile', profile_id,'to database.');
-      });
+      'SELECT tank_id, profile_data FROM vehicle_profile';
+  connection.query(sql, [], 
+  function(err, rows, fields) {
+    if (err) throw err;
+    connection.end(function(err) {
+      var configDict = {};
+      console.log('DEBUG tank_id:', rows[2].tank_id)
+      console.log('DEBUG profile_data:', rows[2].profile_data.toString());
+      for (var i = 0; i < rows.length; i++) {
+        configDict[rows[i].tank_id] = JSON.parse(rows[i].profile_data.toString());
+      }
+      res.json(configDict);
     });
-    // TODO: make this API endpoint work, then make client pull from this API endpoint
+  });
+  // TODO: make this API endpoint work, then make client pull from this API endpoint
 });
 // TODO: more app routes
 
-
+// update tank profile database on start if set
 if (config.updateDbOnStart) {
   console.log('UPDATE_DB flag set: Updating database of vehicle configurations.')
   var wgWotVehicleApi = 'https://api.worldoftanks.com/wot/encyclopedia/vehicles/'+
@@ -75,7 +76,6 @@ if (config.updateDbOnStart) {
     res.on('end', () => { wotproc.processVehicles(JSON.parse(body), true); });
   });
 }
-
 
 // start listen
 app.listen(config.port);
