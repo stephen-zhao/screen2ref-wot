@@ -34,7 +34,12 @@ var Screen2RefWotApp = React.createClass({
       tanksData: {},
       vehicleProfilesData: {},
       battleTierData: {},
-      battleTierSpecialData: {}
+      battleTierSpecialData: {},
+      options: {
+        hasBia: 1,
+        hasRammer: 1,
+        hasVents: 1
+      }
     };
   },
 
@@ -67,7 +72,17 @@ var Screen2RefWotApp = React.createClass({
     this.localBattleTiersSpecialReq.abort();
   },
 
-  handleUserInput: function (battleTier) {
+  handleOptionsChange: function (has_bia, has_rammer, has_vents) {
+    this.setState({
+      options: {
+        hasBia: has_bia,
+        hasRammer: has_rammer,
+        hasVents: has_vents
+      }
+    });
+  },
+
+  handleBattleTierChange: function (battleTier) {
     this.setState({
       battleTier: battleTier
     });
@@ -143,8 +158,8 @@ var Screen2RefWotApp = React.createClass({
     return React.createElement(
       "div",
       { className: "Screen2RefWotAppDiv" },
-      React.createElement(TopBar, { battleTier: this.state.battleTier, onUserInput: this.handleUserInput }),
-      React.createElement(MainView, { vehicles: vehicles })
+      React.createElement(TopBar, { options: this.state.options, battleTier: this.state.battleTier, onChangeOptions: this.handleOptionsChange, onChangeBattleTier: this.handleBattleTierChange }),
+      React.createElement(MainView, { vehicles: vehicles, options: this.state.options })
     );
   }
 });
@@ -158,7 +173,8 @@ var TopBar = React.createClass({
       { className: "TopBar_Div" },
       React.createElement(AppLogo, null),
       React.createElement(PageDescription, null),
-      React.createElement(BattleTierSelector, { battleTier: this.props.battleTier, onUserInput: this.props.onUserInput })
+      React.createElement(PageOptions, { options: this.props.options, onUserInput: this.props.onChangeOptions }),
+      React.createElement(BattleTierSelector, { battleTier: this.props.battleTier, onUserInput: this.props.onChangeBattleTier })
     );
   }
 });
@@ -186,6 +202,71 @@ var PageDescription = React.createClass({
         "span",
         { className: "PageDescription_SpanDesc" },
         "Reload | Armor"
+      )
+    );
+  }
+});
+
+var PageOptions = React.createClass({
+  displayName: "PageOptions",
+
+  handleChange: function () {
+    this.props.onUserInput(this.refs.cb_has_bia.checked, this.refs.cb_has_rammer.checked, this.refs.cb_has_vents.checked);
+  },
+
+  render: function () {
+    return React.createElement(
+      "div",
+      { className: "PageOptions_Div" },
+      React.createElement(
+        "span",
+        { className: "PageOptions_Elem PageOptions_SpanAttribute" },
+        "Reload"
+      ),
+      React.createElement(
+        "span",
+        { className: "PageOptions_Elem PageOptions_SpanDelim" },
+        "//"
+      ),
+      React.createElement(
+        "span",
+        { className: "PageOptions_Elem PageOptions_SpanModifier" },
+        React.createElement(
+          "label",
+          null,
+          React.createElement("input", { type: "checkbox", ref: "cb_has_bia", "class": "PageOptions_cbOption", value: "1", checked: this.props.options.hasBia, onChange: this.handleChange }),
+          "BIA"
+        )
+      ),
+      React.createElement(
+        "span",
+        { className: "PageOptions_Elem PageOptions_SpanDelim" },
+        "/"
+      ),
+      React.createElement(
+        "span",
+        { className: "PageOptions_Elem PageOptions_SpanModifier" },
+        React.createElement(
+          "label",
+          null,
+          React.createElement("input", { type: "checkbox", ref: "cb_has_rammer", "class": "PageOptions_cbOption", value: "1", checked: this.props.options.hasRammer, onChange: this.handleChange }),
+          "Gun Rammer"
+        )
+      ),
+      React.createElement(
+        "span",
+        { className: "PageOptions_Elem PageOptions_SpanDelim" },
+        "/"
+      ),
+      React.createElement(
+        "span",
+        { className: "PageOptions_Elem PageOptions_SpanModifier" },
+        React.createElement(
+          "label",
+          null,
+          React.createElement("input", { type: "checkbox", ref: "cb_has_vents", "class": "PageOptions_cbOption", value: "1", checked: this.props.options.hasVents, onChange: this.handleChange }),
+          "Vents"
+        )
       )
     );
   }
@@ -303,7 +384,7 @@ var MainView = React.createClass({
     return React.createElement(
       "div",
       { className: "MainView_Div" },
-      React.createElement(TableOfTanks, { vehicles: this.props.vehicles })
+      React.createElement(TableOfTanks, { vehicles: this.props.vehicles, options: this.props.options })
     );
   }
 });
@@ -372,7 +453,8 @@ var TableOfTanks = React.createClass({
       { className: "TableOfTanks_THTankClassLabel" },
       tankClass.prettyName
     ));
-    const nationsAsTableOfTanksRowNations = this.nations.map(nation => React.createElement(TableOfTanksRowNation, { nation: nation, tankClasses: this.tankClasses, vehicles: this.props.vehicles.filter(vehicle => vehicle.nation == nation.wgName) }));
+    const nationsAsTableOfTanksRowNations = this.nations.map(nation => React.createElement(TableOfTanksRowNation, { nation: nation, tankClasses: this.tankClasses, options: this.props.options,
+      vehicles: this.props.vehicles.filter(vehicle => vehicle.nation == nation.wgName) }));
     return React.createElement(
       "table",
       { className: "TableOfTanks_Table" },
@@ -417,7 +499,8 @@ var TableOfTanksRowNation = React.createClass({
 
   render: function () {
     const TDNationLabelImgSrc = './img/' + this.props.nation.flagImg;
-    const tankClassesAsTableOfTanksColumnClasses = this.props.tankClasses.map(tankClass => React.createElement(TableOfTanksColumnClass, { nation: this.props.nation, tankClass: tankClass, vehicles: this.props.vehicles.filter(vehicle => vehicle.type == tankClass.wgName) }));
+    const tankClassesAsTableOfTanksColumnClasses = this.props.tankClasses.map(tankClass => React.createElement(TableOfTanksColumnClass, { nation: this.props.nation, tankClass: tankClass, options: this.props.options,
+      vehicles: this.props.vehicles.filter(vehicle => vehicle.type == tankClass.wgName) }));
     return React.createElement(
       "tr",
       { className: "TableOfTanksRowNation_TR" },
@@ -447,7 +530,7 @@ var TableOfTanksColumnClass = React.createClass({
     return React.createElement(
       "td",
       { className: "TableOfTanksColumnClass_TD" },
-      React.createElement(ListOfTanksWAttributes, { nation: this.props.nation, tankClass: this.props.tankClass, vehicles: this.props.vehicles })
+      React.createElement(ListOfTanksWAttributes, { nation: this.props.nation, tankClass: this.props.tankClass, options: this.props.options, vehicles: this.props.vehicles })
     );
   }
 });
@@ -459,7 +542,7 @@ var ListOfTanksWAttributes = React.createClass({
     var vehiclesAsTDTankWAttributes = this.props.vehicles.map(vehicle => React.createElement(
       "td",
       { className: "ListOfTanksWAttributes_TD" },
-      React.createElement(TankWAttributes, { nation: this.props.nation, tankClass: this.props.tankClass, vehicle: vehicle })
+      React.createElement(TankWAttributes, { nation: this.props.nation, tankClass: this.props.tankClass, options: this.props.options, vehicle: vehicle })
     ));
     const TDS_PER_TR = 6;
     var numTRs = Math.ceil(vehiclesAsTDTankWAttributes.length / TDS_PER_TR);
@@ -483,6 +566,10 @@ var TankWAttributes = React.createClass({
   displayName: "TankWAttributes",
 
   render: function () {
+    var has_bia = this.props.options.hasBia;
+    var has_vents = this.props.options.hasVents;
+    var has_rammer = this.props.options.hasRammer;
+
     if (this.props.vehicle.top_profile.armor.turret != null) {
       var turretArmor = this.props.vehicle.top_profile.armor.turret;
       var turretArmorPretty = turretArmor.front + "/" + turretArmor.sides + "/" + turretArmor.rear;
@@ -491,7 +578,7 @@ var TankWAttributes = React.createClass({
       var hullArmor = this.props.vehicle.top_profile.armor.hull;
       var hullArmorPretty = hullArmor.front + "/" + hullArmor.sides + "/" + hullArmor.rear;
     }
-    var reloadTimeEffectiveBy100 = Math.floor(this.props.vehicle.top_profile.gun.reload_time * 8750000 / (375 * 110 + 50000));
+    var reloadTimeEffectiveBy100 = Math.floor(this.props.vehicle.top_profile.gun.reload_time * 8750000 / (375 * (110 + 5.5 * has_bia + 5.5 * has_vents) + 50000) * (1 - 0.1 * has_rammer));
     var reloadTimePretty = Math.floor(reloadTimeEffectiveBy100 / 100) + "." + (reloadTimeEffectiveBy100 % 100 < 10 ? "0" : "") + (reloadTimeEffectiveBy100 % 100 || "0") + "s";
     var divClassNames = "TankWAttributes_Div " + (this.props.vehicle.is_premium ? "TankIsPremium" : "");
     return React.createElement(

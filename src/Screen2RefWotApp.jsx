@@ -44,7 +44,12 @@ var Screen2RefWotApp = React.createClass({
       tanksData: {},
       vehicleProfilesData: {},
       battleTierData: {},
-      battleTierSpecialData: {}
+      battleTierSpecialData: {},
+      options: { 
+        hasBia: 1,
+        hasRammer: 1,
+        hasVents: 1
+      }
     }
   },
 
@@ -77,7 +82,17 @@ var Screen2RefWotApp = React.createClass({
     this.localBattleTiersSpecialReq.abort();
   },
 
-  handleUserInput: function(battleTier) {
+  handleOptionsChange: function(has_bia, has_rammer, has_vents) {
+    this.setState({
+      options: {
+        hasBia: has_bia,
+        hasRammer: has_rammer,
+        hasVents: has_vents
+      }
+    });
+  },
+
+  handleBattleTierChange: function(battleTier) {
     this.setState({
       battleTier: battleTier
     });
@@ -154,8 +169,8 @@ var Screen2RefWotApp = React.createClass({
 
     return (
       <div className="Screen2RefWotAppDiv">
-        <TopBar battleTier={this.state.battleTier} onUserInput={this.handleUserInput}/>
-        <MainView vehicles={vehicles}/>
+        <TopBar options={this.state.options} battleTier={this.state.battleTier} onChangeOptions={this.handleOptionsChange} onChangeBattleTier={this.handleBattleTierChange} />
+        <MainView vehicles={vehicles} options={this.state.options}/>
       </div>
     );
   }
@@ -167,7 +182,8 @@ var TopBar = React.createClass({
       <div className="TopBar_Div">
         <AppLogo/>
         <PageDescription/>
-        <BattleTierSelector battleTier={this.props.battleTier} onUserInput={this.props.onUserInput}/>
+        <PageOptions options={this.props.options} onUserInput={this.props.onChangeOptions}/>
+        <BattleTierSelector battleTier={this.props.battleTier} onUserInput={this.props.onChangeBattleTier}/>
       </div>
     );
   }
@@ -188,6 +204,53 @@ var PageDescription = React.createClass({
     return (
       <div className="PageDescription_Div">
         <span className="PageDescription_SpanDesc">Reload | Armor</span>
+      </div>
+    );
+  }
+});
+
+var PageOptions = React.createClass({
+  handleChange: function() {
+    this.props.onUserInput(
+      this.refs.cb_has_bia.checked,
+      this.refs.cb_has_rammer.checked,
+      this.refs.cb_has_vents.checked
+    );
+  },
+
+  render: function() {
+    return (
+      <div className="PageOptions_Div">
+        <span className="PageOptions_Elem PageOptions_SpanAttribute">
+          Reload
+        </span>
+        <span className="PageOptions_Elem PageOptions_SpanDelim">
+          // 
+        </span>
+        <span className="PageOptions_Elem PageOptions_SpanModifier">
+          <label>
+            <input type="checkbox" ref="cb_has_bia" class="PageOptions_cbOption" value="1" checked={this.props.options.hasBia} onChange={this.handleChange}/>
+            BIA
+          </label>
+        </span>
+        <span className="PageOptions_Elem PageOptions_SpanDelim">
+        /
+        </span>
+        <span className="PageOptions_Elem PageOptions_SpanModifier">
+          <label>
+            <input type="checkbox" ref="cb_has_rammer" class="PageOptions_cbOption" value="1" checked={this.props.options.hasRammer} onChange={this.handleChange}/>
+            Gun Rammer
+          </label>
+        </span>
+        <span className="PageOptions_Elem PageOptions_SpanDelim">
+          /
+        </span>
+        <span className="PageOptions_Elem PageOptions_SpanModifier">
+          <label>
+            <input type="checkbox" ref="cb_has_vents" class="PageOptions_cbOption" value="1" checked={this.props.options.hasVents} onChange={this.handleChange}/>
+            Vents
+          </label>
+        </span>
       </div>
     );
   }
@@ -252,7 +315,7 @@ var MainView = React.createClass({
   render: function() {
     return (
       <div className="MainView_Div">
-        <TableOfTanks vehicles={this.props.vehicles}/>
+        <TableOfTanks vehicles={this.props.vehicles} options={this.props.options}/>
       </div>
     );
   }
@@ -337,7 +400,8 @@ var TableOfTanks = React.createClass({
       </th>
     );
     const nationsAsTableOfTanksRowNations = this.nations.map(nation =>
-      <TableOfTanksRowNation nation={nation} tankClasses={this.tankClasses} vehicles={
+      <TableOfTanksRowNation nation={nation} tankClasses={this.tankClasses} options={this.props.options} 
+      vehicles={
         this.props.vehicles.filter(vehicle =>
           (vehicle.nation == nation.wgName)
         )
@@ -385,7 +449,8 @@ var TableOfTanksRowNation = React.createClass({
   render: function() {
     const TDNationLabelImgSrc = './img/' + this.props.nation.flagImg;
     const tankClassesAsTableOfTanksColumnClasses = this.props.tankClasses.map(tankClass =>
-      <TableOfTanksColumnClass nation={this.props.nation} tankClass={tankClass} vehicles={
+      <TableOfTanksColumnClass nation={this.props.nation} tankClass={tankClass} options={this.props.options}
+      vehicles={
         this.props.vehicles.filter(vehicle =>
           (vehicle.type == tankClass.wgName)
         )
@@ -409,7 +474,7 @@ var TableOfTanksColumnClass = React.createClass({
   render: function() {
     return (
       <td className="TableOfTanksColumnClass_TD">
-        <ListOfTanksWAttributes nation={this.props.nation} tankClass={this.props.tankClass} vehicles={this.props.vehicles}/>
+        <ListOfTanksWAttributes nation={this.props.nation} tankClass={this.props.tankClass} options={this.props.options} vehicles={this.props.vehicles}/>
       </td>
     );
   }
@@ -419,7 +484,7 @@ var ListOfTanksWAttributes = React.createClass({
   render: function() {
     var vehiclesAsTDTankWAttributes = this.props.vehicles.map(vehicle =>
       <td className="ListOfTanksWAttributes_TD">
-        <TankWAttributes nation={this.props.nation} tankClass={this.props.tankClass} vehicle={vehicle}/>
+        <TankWAttributes nation={this.props.nation} tankClass={this.props.tankClass} options={this.props.options} vehicle={vehicle}/>
       </td>
     );
     const TDS_PER_TR = 6;
@@ -442,6 +507,10 @@ var ListOfTanksWAttributes = React.createClass({
 
 var TankWAttributes = React.createClass({
   render: function() {
+    var has_bia = this.props.options.hasBia;
+    var has_vents = this.props.options.hasVents;
+    var has_rammer = this.props.options.hasRammer;
+
     if (this.props.vehicle.top_profile.armor.turret != null) {
       var turretArmor = this.props.vehicle.top_profile.armor.turret;
       var turretArmorPretty = turretArmor.front + "/" + turretArmor.sides + "/" + turretArmor.rear;
@@ -450,7 +519,7 @@ var TankWAttributes = React.createClass({
       var hullArmor = this.props.vehicle.top_profile.armor.hull;
       var hullArmorPretty = hullArmor.front + "/" + hullArmor.sides + "/" + hullArmor.rear;
     }
-    var reloadTimeEffectiveBy100 = Math.floor(this.props.vehicle.top_profile.gun.reload_time * 8750000 / (375*110+50000) * 0.9);
+    var reloadTimeEffectiveBy100 = Math.floor(this.props.vehicle.top_profile.gun.reload_time * 8750000 / (375*(110+5.5*has_bia+5.5*has_vents)+50000) * (1 - 0.1*has_rammer));
     var reloadTimePretty = Math.floor(reloadTimeEffectiveBy100 / 100) + "." + (((reloadTimeEffectiveBy100 % 100) < 10) ? "0" : "") + (reloadTimeEffectiveBy100 % 100 || "0") + "s"
     var divClassNames = "TankWAttributes_Div " + (this.props.vehicle.is_premium ? "TankIsPremium" : "");
     return (

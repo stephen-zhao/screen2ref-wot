@@ -39,6 +39,19 @@ body {
 }
 
 .PageDescription_Div {
+    /*margin: 1rem;
+    display: block;
+    position: absolute;
+    left: 8rem;
+    top: -0.3rem;*/
+    display: none;
+}
+
+.PageDescription_SpanDesc {
+    font-size: 2.4rem;
+}
+
+.PageOptions_Div {
     margin: 1rem;
     display: block;
     position: absolute;
@@ -46,8 +59,10 @@ body {
     top: -0.3rem;
 }
 
-.PageDescription_SpanDesc {
+.PageOptions_Elem {
+    display: inline-block;
     font-size: 2.4rem;
+    margin: 0rem 2rem;
 }
 
 .BattleTierSelector_Div {
@@ -140,4 +155,20 @@ body {
 
 .TankWAttributes_VehicleName {
     font-weight: 700;
+}
+
+.TankWAttributes_VehicleReload {
+    font-size: 3.5rem;
+    display: block;
+    -ms-transform: scale(0.5, 1);
+    -webkit-transform: scale(0.5, 1);
+    transform: scale(0.5, 1) translate(-2.5rem, 1rem);
+}
+
+.TankWAttributes_VehicleArmorTurret {
+    display:none;
+}
+
+.TankWAttributes_VehicleArmorHull {
+    display:none;
 }

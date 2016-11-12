@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"res",
+				"res"
+			],
+			[
 				"defa",
 				"defaultModules"
 			],
@@ -23,7 +27,7 @@
 			"file": "server.js",
 			"settings":
 			{
-				"buffer_size": 2606,
+				"buffer_size": 2757,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -40,7 +44,7 @@
 			"file": "app/WoTProcessing.js",
 			"settings":
 			{
-				"buffer_size": 7598,
+				"buffer_size": 7670,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -58,7 +62,7 @@
 			"file": "src/Screen2RefWotApp.jsx",
 			"settings":
 			{
-				"buffer_size": 15035,
+				"buffer_size": 14877,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -107,7 +111,8 @@
 			"file": "public/css/screen2ref.wot.css",
 			"settings":
 			{
-				"buffer_size": 2253,
+				"buffer_size": 2426,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
@@ -246,11 +251,22 @@
 	"expanded_folders":
 	[
 		"/D/projects/online.screen2ref.wot",
-		"/D/projects/online.screen2ref.wot/app",
-		"/D/projects/online.screen2ref.wot/lib"
+		"/D/projects/online.screen2ref.wot/lib",
+		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules",
+		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/content-type",
+		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/http-errors",
+		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/http-errors/node_modules",
+		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/http-errors/node_modules/inherits",
+		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/http-errors/node_modules/setprototypeof",
+		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/http-errors/node_modules/statuses",
+		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/qs",
+		"/D/projects/online.screen2ref.wot/public",
+		"/D/projects/online.screen2ref.wot/public/css"
 	],
 	"file_history":
 	[
+		"/C/cmder/vendor/git-for-windows/mingw32/ssl/cert.pem",
+		"/D/projects/online.screen2ref.wot/node_modules/babel-cli/node_modules/request/node_modules/http-signature/node_modules/sshpk/lib/formats/pem.js",
 		"/D/projects/online.screen2ref.wot/lib/Screen2RefWotApp.js",
 		"/D/projects/online.screen2ref.wot/app/config.js",
 		"/D/projects/online.screen2ref.wot/app/WoTProcessing.js",
@@ -376,9 +392,7 @@
 		"/C/LiteStep/modules/xtaskbar-1.1.5.dll",
 		"/D/projects/SZXT77_modpack/develop/0.9.13.4/part-xvm/res_mods/configs/xvm/szxt77_xvm_config/texts.xc",
 		"/D/projects/SZXT77_modpack/develop/0.9.13.4/part-xvm/res_mods/configs/xvm/szxt77_xvm_config/playersPanel.xc",
-		"/D/projects/SZXT77_modpack/develop/0.9.13.4/part-xvm/res_mods/configs/xvm/szxt77_xvm_config/alpha.xc",
-		"/D/projects/SZXT77_modpack/develop/part-xvm/res_mods/configs/xvm/szxt77_xvm_config/playersPanel.xc",
-		"/D/projects/SZXT77_modpack/release/SZXT77_modpack_0.9.14.1/res_mods/configs/xvm/szxt77_xvm_config/playersPanel.xc"
+		"/D/projects/SZXT77_modpack/develop/0.9.13.4/part-xvm/res_mods/configs/xvm/szxt77_xvm_config/alpha.xc"
 	],
 	"find":
 	{
@@ -448,7 +462,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 10,
 			"sheets":
 			[
 				{
@@ -457,15 +471,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2606,
+						"buffer_size": 2757,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1772,
-								1772
+								1116,
+								1116
 							]
 						],
 						"settings":
@@ -483,7 +497,7 @@
 								"current_ext": ".js",
 								"current_syntax": "Babel/JavaScript (Babel)",
 								"enabled": false,
-								"last_updated": 1478667596.93
+								"last_updated": 1478937202.87
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
@@ -491,10 +505,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 544.0,
+						"translation.y": 462.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -510,8 +524,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								287,
+								287
 							]
 						],
 						"settings":
@@ -529,7 +543,7 @@
 								"current_ext": ".js",
 								"current_syntax": "Babel/JavaScript (Babel)",
 								"enabled": false,
-								"last_updated": 1478667596.93
+								"last_updated": 1478937202.87
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
@@ -540,7 +554,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -549,15 +563,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7598,
+						"buffer_size": 7670,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								937,
-								1472
+								3310,
+								3310
 							]
 						],
 						"settings":
@@ -575,16 +589,16 @@
 								"current_ext": ".js",
 								"current_syntax": "Babel/JavaScript (Babel)",
 								"enabled": false,
-								"last_updated": 1478667596.93
+								"last_updated": 1478937202.87
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 114.0,
+						"translation.y": 1575.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -611,9 +625,6 @@
 							"color_helper.file_palette":
 							[
 							],
-							"color_helper.preview_meta":
-							{
-							},
 							"color_helper.scan":
 							{
 								"current_ext": ".js",
@@ -627,7 +638,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -636,15 +647,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15035,
+						"buffer_size": 14877,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2420,
-								2420
+								14510,
+								14539
 							]
 						],
 						"settings":
@@ -662,7 +673,7 @@
 								"current_ext": ".jsx",
 								"current_syntax": "Babel/JavaScript (Babel)",
 								"enabled": false,
-								"last_updated": 1478667596.93
+								"last_updated": 1478937202.87
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
@@ -670,10 +681,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 597.0,
+						"translation.y": 8923.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -695,17 +706,20 @@
 						],
 						"settings":
 						{
-							"color_helper.box_height": 15,
+							"color_helper.box_height": 17,
 							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"color_helper.file_palette":
 							[
 							],
+							"color_helper.preview_meta":
+							{
+							},
 							"color_helper.scan":
 							{
 								"current_ext": ".json",
 								"current_syntax": "Materialize/Langs/npm JSON",
 								"enabled": false,
-								"last_updated": 1478653649.78
+								"last_updated": 1478937202.87
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Materialize/Langs/npm JSON.tmLanguage",
@@ -713,10 +727,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 124.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -757,7 +771,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -800,7 +814,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -843,7 +857,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
@@ -907,7 +921,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
@@ -916,19 +930,21 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2253,
+						"buffer_size": 2426,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								814,
-								814
+								2308,
+								2308
 							]
 						],
 						"settings":
 						{
+							"color_helper.box_height": 17,
+							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"color_helper.file_palette":
 							[
 								"#123112ff",
@@ -939,23 +955,66 @@
 							],
 							"color_helper.popup_active": false,
 							"color_helper.popup_auto": true,
+							"color_helper.preview_meta":
+							{
+								"1170":
+								[
+									7530821658140381938,
+									7,
+									"hex",
+									6759484703020279427,
+									1
+								],
+								"1238":
+								[
+									-6347896812483196632,
+									7,
+									"hex",
+									6759484703020279427,
+									2
+								],
+								"1308":
+								[
+									-4672918138087879084,
+									7,
+									"hex",
+									6759484703020279427,
+									3
+								],
+								"1344":
+								[
+									-4672918138087879084,
+									7,
+									"hex",
+									6759484703020279427,
+									4
+								],
+								"2187":
+								[
+									-7716369333581838180,
+									7,
+									"hex",
+									6759484703020279427,
+									5
+								]
+							},
 							"color_helper.scan":
 							{
 								"allowed_colors":
 								[
 									"rgb",
-									"hex_compressed",
-									"rgba",
 									"hsl",
 									"hsla",
+									"rgba",
 									"webcolors",
-									"hex"
+									"hex",
+									"hex_compressed"
 								],
 								"compress_hex_output": true,
 								"current_ext": ".css",
 								"current_syntax": "CSS/CSS",
 								"enabled": true,
-								"last_updated": 1475631753.18,
+								"last_updated": 1478937202.87,
 								"scan_completion_scopes":
 								[
 								],
@@ -975,10 +1034,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 658.0,
+						"translation.y": 2560.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1019,7 +1078,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
