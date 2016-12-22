@@ -14,7 +14,6 @@ module.exports = {
   ],
 
   addProfileToDb: function(data, tank_id, profile_id) {
-    // TODO: add to database
     console.log('DEBUG data:', data);
     console.log('DEBUG str tank_id:', tank_id.toString());
     console.log('DEBUG profile_id:', profile_id);

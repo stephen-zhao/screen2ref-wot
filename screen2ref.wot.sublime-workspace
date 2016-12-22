@@ -59,12 +59,24 @@
 			}
 		},
 		{
+			"contents": "//import React from 'react';\n//import ReactDOM from 'react-dom';\n\nvar Screen2RefWotApp = React.createClass({\n  tankClasses: [\n    {\n      \"prettyName\": \"Light\",\n      \"wgName\": \"lightTank\",\n      \"localName\": \"light\"\n    },\n    {\n      \"prettyName\": \"Medium\",\n      \"wgName\": \"mediumTank\",\n      \"localName\": \"medium\"\n    },\n    {\n      \"prettyName\": \"Heavy\",\n      \"wgName\": \"heavyTank\",\n      \"localName\": \"heavy\"\n    },\n    {\n      \"prettyName\": \"SPG\",\n      \"wgName\": \"SPG\",\n      \"localName\": \"spg\"\n    },\n    {\n      \"prettyName\": \"TD\",\n      \"wgName\": \"AT-SPG\",\n      \"localName\": \"td\"\n    }\n  ],\n\n  moduleTypes: [\n    { \"moduleName\": \"suspension\", \"nodeName\": \"vehicleChassis\" },\n    { \"moduleName\": \"turret\", \"nodeName\": \"vehicleTurret\" },\n    { \"moduleName\": \"gun\", \"nodeName\": \"vehicleGun\" },\n    { \"moduleName\": \"engine\", \"nodeName\": \"vehicleEngine\" },\n    { \"moduleName\": \"radio\", \"nodeName\": \"vehicleRadio\" }\n  ],\n\n  getInitialState: function() {\n    return {\n      battleTier: 11,\n      tanksData: {},\n      vehicleProfilesData: {},\n      battleTierData: {},\n      battleTierSpecialData: {},\n      options: { \n        hasBia: 1,\n        hasRammer: 1,\n        hasVents: 1\n      }\n    }\n  },\n\n  componentDidMount: function() {\n    this.wgapiVehiclesReq = $.get('https://api.worldoftanks.com/wot/encyclopedia/vehicles/?application_id=7c6bb9f5b4ebb263c4fecfe190103f40', function(res) {\n      this.setState({\n        tanksData: res\n      });\n    }.bind(this));\n    this.s2rapiVehicleProfilesReq = $.get('/api/vehicleTopConfigs', function(res) {\n      this.setState({\n        vehicleProfilesData: res\n      });\n    }.bind(this));\n    this.localBattleTiersReq = $.get('/api/battleTiers', function(res) {\n      this.setState({\n        battleTierData: res\n      });\n    }.bind(this));\n    this.localBattleTiersSpecialReq = $.get('/api/battleTiersSpecial', function(res) {\n      this.setState({\n        battleTierSpecialData: res\n      });\n    }.bind(this));\n  },\n\n  componentWillUnmount: function() {\n    this.wgapiVehiclesReq.abort();\n    this.localBattleTiersReq.abort();\n    this.localBattleTiersSpecialReq.abort();\n  },\n\n  handleOptionsChange: function(has_bia, has_rammer, has_vents) {\n    this.setState({\n      options: {\n        hasBia: has_bia,\n        hasRammer: has_rammer,\n        hasVents: has_vents\n      }\n    });\n  },\n\n  handleBattleTierChange: function(battleTier) {\n    this.setState({\n      battleTier: battleTier\n    });\n  },\n\n  // getTopModuleId: function(vehicle, module_id, moduleType) {\n  //   // LAZY JUST KILL IT IF MODULE_ID IS NULL, I DON\"T WANT TO DEAL WITH THIS\n  //   if (module_id == null) return null;\n  //   // if no more next module, we are at top module, check if correct type\n  //   if (!vehicle.modules_tree[module_id.toString()].next_modules) {\n  //     if (moduleType.nodeName == vehicle.modules_tree[module_id.toString()].type) {\n  //       return module_id;\n  //     }\n  //     else {\n  //       return null;\n  //     }    \n  //   }\n  //   // else for each module in the tree, rerun the search\n  //   else {\n  //     for (var i in vehicle.modules_tree[module_id.toString()].next_modules) {\n  //       res = this.getTopModuleId(vehicle, vehicle.modules_tree[module_id.toString()].next_modules[i], moduleType);\n  //       if (res != null) {\n  //         return res;\n  //       }\n  //     }\n  //     // if everything we visited was not the correct type (-1), check self\n  //     if (moduleType.nodeName == vehicle.modules_tree[module_id.toString()].type) {\n  //       return module_id;\n  //     }\n  //     else {\n  //       return null;\n  //     }\n  //   }\n  // },\n\n  render: function() {\n    // Create list to hold filtered & augmented vehicle data\n    var vehicles = [];\n\n    // Vehicle filtering by battle tier\n    for (var vehicle in this.state.tanksData.data) {\n      var wgVehicleClass = '';\n      var wgVehicleTier = this.state.tanksData.data[vehicle].tier;\n      var wgVehicleId = this.state.tanksData.data[vehicle].tank_id;\n      // translate wg tank class names to local names\n      for(var tankClassTranslator in this.tankClasses) {\n        if (this.tankClasses[tankClassTranslator].wgName == this.state.tanksData.data[vehicle].type) {\n          wgVehicleClass = this.tankClasses[tankClassTranslator].localName;\n        }\n      }\n      // check for special tanks\n      var battleTierSpecialVehicles = this.state.battleTierSpecialData.vehiclesSpecial;\n      for (var specialVehicle in battleTierSpecialVehicles) {\n        // If the tank is a special tank, then check if the battle tier matches\n        if (battleTierSpecialVehicles[specialVehicle].tank_id == wgVehicleId && \n           (battleTierSpecialVehicles[specialVehicle].battleTiers.indexOf(this.state.battleTier) != -1)) {\n          vehicles.push(this.state.tanksData.data[vehicle]);\n        }\n      }\n      var battleTierVehicles = this.state.battleTierData.battleTiers[this.state.battleTier - 1].vehicles;\n      for (var vehicleTypeInBattleTier in battleTierVehicles) {\n        // check if the vehicle's tier and class combination exists\n        if (battleTierVehicles[vehicleTypeInBattleTier].vehicleClass == wgVehicleClass &&\n            battleTierVehicles[vehicleTypeInBattleTier].vehicleTier == wgVehicleTier) {\n          vehicles.push(this.state.tanksData.data[vehicle]);\n        }\n      }\n    }\n\n    //Augment vehicle data with top profile data\n    for (var i in vehicles) {\n      vehicles[i].top_profile = this.state.vehicleProfilesData[vehicles[i].tank_id.toString()];\n    }\n\n    return (\n      <div className=\"Screen2RefWotAppDiv\">\n        <TopBar options={this.state.options} battleTier={this.state.battleTier} onChangeOptions={this.handleOptionsChange} onChangeBattleTier={this.handleBattleTierChange} />\n        <MainView vehicles={vehicles} options={this.state.options}/>\n      </div>\n    );\n  }\n});\n\nvar TopBar = React.createClass({\n  render: function() {\n    return (\n      <div className=\"TopBar_Div\">\n        <AppLogo/>\n        <PageDescription/>\n        <PageOptions options={this.props.options} onUserInput={this.props.onChangeOptions}/>\n        <BattleTierSelector battleTier={this.props.battleTier} onUserInput={this.props.onChangeBattleTier}/>\n      </div>\n    );\n  }\n});\n\nvar AppLogo = React.createClass({\n  render: function() {\n    return (\n      <div className=\"AppLogo_Div\">\n        <img className=\"AppLogo_Img\" src=\"./img/Logo-wot.png\"/>\n      </div>\n    );\n  }\n});\n\nvar PageDescription = React.createClass({\n  render: function() {\n    return (\n      <div className=\"PageDescription_Div\">\n        <span className=\"PageDescription_SpanDesc\">Reload | Armor</span>\n      </div>\n    );\n  }\n});\n\nvar PageOptions = React.createClass({\n  handleChange: function() {\n    this.props.onUserInput(\n      this.refs.cb_has_bia.checked,\n      this.refs.cb_has_rammer.checked,\n      this.refs.cb_has_vents.checked\n    );\n  },\n\n  render: function() {\n    return (\n      <div className=\"PageOptions_Div\">\n        <span className=\"PageOptions_Elem PageOptions_SpanAttribute\">\n          Reload\n        </span>\n        <span className=\"PageOptions_Elem PageOptions_SpanDelim\">\n          // \n        </span>\n        <span className=\"PageOptions_Elem PageOptions_SpanModifier\">\n          <label>\n            <input type=\"checkbox\" ref=\"cb_has_bia\" class=\"PageOptions_cbOption\" value=\"1\" checked={this.props.options.hasBia} onChange={this.handleChange}/>\n            BIA\n          </label>\n        </span>\n        <span className=\"PageOptions_Elem PageOptions_SpanDelim\">\n        /\n        </span>\n        <span className=\"PageOptions_Elem PageOptions_SpanModifier\">\n          <label>\n            <input type=\"checkbox\" ref=\"cb_has_rammer\" class=\"PageOptions_cbOption\" value=\"1\" checked={this.props.options.hasRammer} onChange={this.handleChange}/>\n            Gun Rammer\n          </label>\n        </span>\n        <span className=\"PageOptions_Elem PageOptions_SpanDelim\">\n          /\n        </span>\n        <span className=\"PageOptions_Elem PageOptions_SpanModifier\">\n          <label>\n            <input type=\"checkbox\" ref=\"cb_has_vents\" class=\"PageOptions_cbOption\" value=\"1\" checked={this.props.options.hasVents} onChange={this.handleChange}/>\n            Vents\n          </label>\n        </span>\n      </div>\n    );\n  }\n});\n\nvar BattleTierSelector = React.createClass({\n  // isBattleTierN: [\n  //   false, // 1 [0]\n  //   false, // 2 [1]\n  //   false, // 3 [2]\n  //   false, // 4 [3]\n  //   false, // 5 [4]\n  //   false, // 6 [5]\n  //   false, // 7 [6]\n  //   false, // 8 [7]\n  //   false, // 9 [8]\n  //   false, // 10 [9]\n  //   true   // 11 [10]\n  // ],\n\n  handleChange: function() {\n    this.props.onUserInput(\n      this.refs.battleTierInput.value\n    );\n  },\n\n          //<option value=\"11\" selected={this.isBattleTierN[10]}>XI</option>\n          //<option value=\"10\" selected={this.isBattleTierN[9]}>X</option>\n          //<option value=\"9\" selected={this.isBattleTierN[8]}>IX</option>\n          //<option value=\"8\" selected={this.isBattleTierN[7]}>VIII</option>\n          //<option value=\"7\" selected={this.isBattleTierN[6]}>VII</option>\n          //<option value=\"6\" selected={this.isBattleTierN[5]}>VI</option>\n          //<option value=\"5\" selected={this.isBattleTierN[4]}>V</option>\n          //<option value=\"4\" selected={this.isBattleTierN[3]}>IV</option>\n          //<option value=\"3\" selected={this.isBattleTierN[2]}>III</option>\n          //<option value=\"2\" selected={this.isBattleTierN[1]}>II</option>\n          //<option value=\"1\" selected={this.isBattleTierN[0]}>I</option>\n\n  render: function() {\n    return (\n      <div className=\"BattleTierSelector_Div\">\n        <span className=\"BattleTierSelector_SpanLabel\">Battle Tier&nbsp;&nbsp;&nbsp;</span>\n        <select className=\"BattleTierSelector_Select\" name=\"battleTiers\" value={this.props.battleTier} ref=\"battleTierInput\" onChange={this.handleChange}>\n          <option value=\"11\">XI</option>\n          <option value=\"10\">X</option>\n          <option value=\"9\">IX</option>\n          <option value=\"8\">VIII</option>\n          <option value=\"7\">VII</option>\n          <option value=\"6\">VI</option>\n          <option value=\"5\">V</option>\n          <option value=\"4\">IV</option>\n          <option value=\"3\">III</option>\n          <option value=\"2\">II</option>\n          <option value=\"1\">I</option>\n        </select>\n      </div>\n    );\n  }\n});\n\nvar MainView = React.createClass({\n  render: function() {\n    return (\n      <div className=\"MainView_Div\">\n        <TableOfTanks vehicles={this.props.vehicles} options={this.props.options}/>\n      </div>\n    );\n  }\n});\n\nvar TableOfTanks = React.createClass({\n  tankClasses: [\n    {\n      \"prettyName\": \"Light\",\n      \"wgName\": \"lightTank\"\n    },\n    {\n      \"prettyName\": \"Medium\",\n      \"wgName\": \"mediumTank\"\n    },\n    {\n      \"prettyName\": \"Heavy\",\n      \"wgName\": \"heavyTank\"\n    },\n    {\n      \"prettyName\": \"SPG\",\n      \"wgName\": \"SPG\"\n    },\n    {\n      \"prettyName\": \"TD\",\n      \"wgName\": \"AT-SPG\"\n    }\n  ],\n\n  nations: [\n    {\n      \"prettyName\": \"China\",\n      \"wgName\": \"china\",\n      \"flagImg\": \"china-flag.png\"\n    },\n    {\n      \"prettyName\": \"Czechia\",\n      \"wgName\": \"czech\",\n      \"flagImg\": \"czechia-flag.png\"\n    },\n    {\n      \"prettyName\": \"France\",\n      \"wgName\": \"france\",\n      \"flagImg\": \"france-flag.png\"\n    },\n    {\n      \"prettyName\": \"Germany\",\n      \"wgName\": \"germany\",\n      \"flagImg\": \"germany-flag.png\"\n    },\n    {\n      \"prettyName\": \"Japan\",\n      \"wgName\": \"japan\",\n      \"flagImg\": \"japan-flag.png\"\n    },\n    {\n      \"prettyName\": \"Sweden\",\n      \"wgName\": \"sweden\",\n      \"flagImg\": \"sweden-flag.png\"\n    },\n    {\n      \"prettyName\": \"UK\",\n      \"wgName\": \"uk\",\n      \"flagImg\": \"uk-flag.png\"\n    },\n    {\n      \"prettyName\": \"USA\",\n      \"wgName\": \"usa\",\n      \"flagImg\": \"usa-flag.png\"\n    },\n    {\n      \"prettyName\": \"USSR\",\n      \"wgName\": \"ussr\",\n      \"flagImg\": \"ussr-flag.png\"\n    }\n  ],\n\n  render: function() {\n    const tankClassesAsTHLabels = this.tankClasses.map(tankClass =>\n      <th className=\"TableOfTanks_THTankClassLabel\">\n        {tankClass.prettyName}\n      </th>\n    );\n    const nationsAsTableOfTanksRowNations = this.nations.map(nation =>\n      <TableOfTanksRowNation nation={nation} tankClasses={this.tankClasses} options={this.props.options} \n      vehicles={\n        this.props.vehicles.filter(vehicle =>\n          (vehicle.nation == nation.wgName)\n        )\n      }/>\n    );\n    return (\n      <table className=\"TableOfTanks_Table\">\n        <tr className=\"TableOfTanks_TRTankClassLabels\">\n          <td className=\"TableOfTanks_TRTankClassLabelsTDPlaceholder\">\n          </td>\n          {tankClassesAsTHLabels}\n        </tr>\n        {nationsAsTableOfTanksRowNations}\n      </table>\n    );\n  }\n});\n\nvar TableOfTanksRowNation = React.createClass({\n\n  // componentDidMount: function() {\n  //   this.wgapiVehiclesReq = $.get('https://api.worldoftanks.com/wot/encyclopedia/vehicles/?application_id=7c6bb9f5b4ebb263c4fecfe190103f40', function(res) {\n  //     this.setState({\n  //       nationRadios: res\n  //     });\n  //   }.bind(this));\n  //   this.localBattleTiersReq = $.get('/api/battleTiers', function(res) {\n  //     this.setState({\n  //       battleTierData: res\n  //     });\n  //   }.bind(this));\n  //   this.localBattleTiersSpecialReq = $.get('/api/battleTiersSpecial', function(res) {\n  //     this.setState({\n  //       battleTierSpecialData: res\n  //     });\n  //   }.bind(this));\n  // },\n\n  // componentWillUnmount: function() {\n  //   this.wgapiVehiclesReq.abort();\n  //   this.localBattleTiersReq.abort();\n  //   this.localBattleTiersSpecialReq.abort();\n  // },\n\n  render: function() {\n    const TDNationLabelImgSrc = './img/' + this.props.nation.flagImg;\n    const tankClassesAsTableOfTanksColumnClasses = this.props.tankClasses.map(tankClass =>\n      <TableOfTanksColumnClass nation={this.props.nation} tankClass={tankClass} options={this.props.options}\n      vehicles={\n        this.props.vehicles.filter(vehicle =>\n          (vehicle.type == tankClass.wgName)\n        )\n      }/>\n    );\n    return (\n      <tr className=\"TableOfTanksRowNation_TR\">\n        <td className=\"TableOfTanksRowNation_TDNationLabel\">\n          <div className=\"TableOfTanksRowNation_TDNationLabelDiv\">\n            <img className=\"TableOfTanksRowNation_TDNationLabelImg\" src={TDNationLabelImgSrc}/>\n            <span className=\"TableOfTanksRowNation_TDNationLabelSpan\">{this.props.nation.prettyName}</span>\n          </div>\n        </td>\n        {tankClassesAsTableOfTanksColumnClasses}\n      </tr>\n    );\n  }\n});\n\nvar TableOfTanksColumnClass = React.createClass({\n  getNumCols: function(tankClass) {\n    if (tankClass.wgName == \"lightTank\") return 6;\n    if (tankClass.wgName == \"mediumTank\") return 7;\n    if (tankClass.wgName == \"heavyTank\") return 5;\n    if (tankClass.wgName == \"SPG\") return 4;\n    if (tankClass.wgName == \"AT-SPG\") return 7;\n    return 6;\n  },\n\n  render: function() {\n    return (\n      <td className=\"TableOfTanksColumnClass_TD\">\n        <ListOfTanksWAttributes nation={this.props.nation} tankClass={this.props.tankClass} \n        options={this.props.options} vehicles={this.props.vehicles}\n        numCols={this.getNumCols(this.props.tankClass)}/>\n      </td>\n    );\n  }\n});\n\nvar ListOfTanksWAttributes = React.createClass({\n  render: function() {\n    var vehiclesAsTDTankWAttributes = this.props.vehicles.map(vehicle =>\n      <td className=\"ListOfTanksWAttributes_TD\">\n        <TankWAttributes nation={this.props.nation} tankClass={this.props.tankClass} options={this.props.options} vehicle={vehicle}/>\n      </td>\n    );\n    var numTRs = Math.ceil(vehiclesAsTDTankWAttributes.length / this.props.numCols);\n    var TDTankWAttributesInTRs = [];\n    for (var i = 0; i < numTRs; i++) {\n      TDTankWAttributesInTRs.push(\n        <tr className=\"ListOfTanksWAttributes_TR\">\n          {vehiclesAsTDTankWAttributes.slice(i*this.props.numCols,(i+1)*this.props.numCols)}\n        </tr>\n      );\n    }\n    return (\n      <table className=\"ListOfTanksWAttributes_Table\">\n        {TDTankWAttributesInTRs}\n      </table>\n    );\n  }\n});\n\nvar TankWAttributes = React.createClass({\n  render: function() {\n    var has_bia = this.props.options.hasBia;\n    var has_vents = this.props.options.hasVents;\n    var has_rammer = this.props.options.hasRammer;\n\n    if (this.props.vehicle.top_profile.armor.turret != null) {\n      var turretArmor = this.props.vehicle.top_profile.armor.turret;\n      var turretArmorPretty = turretArmor.front + \"/\" + turretArmor.sides + \"/\" + turretArmor.rear;\n    }\n    if (this.props.vehicle.top_profile.armor.hull != null) {\n      var hullArmor = this.props.vehicle.top_profile.armor.hull;\n      var hullArmorPretty = hullArmor.front + \"/\" + hullArmor.sides + \"/\" + hullArmor.rear;\n    }\n    var reloadTimeEffectiveBy100 = Math.floor(this.props.vehicle.top_profile.gun.reload_time * 8750000 / (375*(110+5.5*has_bia+5.5*has_vents)+50000) * (1 - 0.1*has_rammer));\n    var reloadTimePretty = Math.floor(reloadTimeEffectiveBy100 / 100) + \".\" + (((reloadTimeEffectiveBy100 % 100) < 10) ? \"0\" : \"\") + (reloadTimeEffectiveBy100 % 100 || \"0\") + \"s\"\n    var divClassNames = \"TankWAttributes_Div \" + (this.props.vehicle.is_premium ? \"TankIsPremium\" : \"\");\n    return (\n      <div className={divClassNames}>\n        <span className=\"TankWAttributes_VehicleName\">{this.props.vehicle.short_name}</span><br/>\n        <span className=\"TankWAttributes_VehicleReload\">{reloadTimePretty}</span><br/>\n        <span className=\"TankWAttributes_VehicleArmorTurret\">{turretArmorPretty || \"N/A\"}</span><br/>\n        <span className=\"TankWAttributes_VehicleArmorHull\">{hullArmorPretty || \"N/A\"}</span>\n      </div>\n    );\n  }\n});\n\nReactDOM.render(\n  <Screen2RefWotApp/>,\n  document.getElementById('container')\n);",
 			"file": "src/Screen2RefWotApp.jsx",
+			"file_size": 18270,
+			"file_write_time": 131235014409903517,
 			"settings":
 			{
-				"buffer_size": 14877,
-				"encoding": "UTF-8",
+				"buffer_size": 17722,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/School/CS 251/page stuff.txt",
+			"settings":
+			{
+				"buffer_size": 1738,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "Free pages: 0 1 2 3 4 5 6 7"
 			}
 		},
 		{
@@ -111,7 +123,7 @@
 			"file": "public/css/screen2ref.wot.css",
 			"settings":
 			{
-				"buffer_size": 2426,
+				"buffer_size": 2812,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -251,20 +263,14 @@
 	"expanded_folders":
 	[
 		"/D/projects/online.screen2ref.wot",
-		"/D/projects/online.screen2ref.wot/lib",
-		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules",
-		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/content-type",
-		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/http-errors",
-		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/http-errors/node_modules",
-		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/http-errors/node_modules/inherits",
-		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/http-errors/node_modules/setprototypeof",
-		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/http-errors/node_modules/statuses",
-		"/D/projects/online.screen2ref.wot/node_modules/body-parser/node_modules/qs",
 		"/D/projects/online.screen2ref.wot/public",
 		"/D/projects/online.screen2ref.wot/public/css"
 	],
 	"file_history":
 	[
+		"/D/projects/c-mem/C10-mem.c",
+		"/D/School/CS 245E/PF9.rkt",
+		"/C/Users/Stephen/Downloads/[TBS] Kenichiro Suehiro - Re Zero kara Hajimeru Isekai Seikatsu OST (Full) [FLAC 24bit].tar.gz",
 		"/C/cmder/vendor/git-for-windows/mingw32/ssl/cert.pem",
 		"/D/projects/online.screen2ref.wot/node_modules/babel-cli/node_modules/request/node_modules/http-signature/node_modules/sshpk/lib/formats/pem.js",
 		"/D/projects/online.screen2ref.wot/lib/Screen2RefWotApp.js",
@@ -389,10 +395,7 @@
 		"/C/LiteStep/step.rc",
 		"/C/Users/Stephen/Downloads/Recent Downloads/midnight_for_litestep_by_juiceboxxxxxx-d9mwkt7/Midnight.lsz",
 		"/C/LiteStep/NLM/NetLoadModule-2.5.0.html",
-		"/C/LiteStep/modules/xtaskbar-1.1.5.dll",
-		"/D/projects/SZXT77_modpack/develop/0.9.13.4/part-xvm/res_mods/configs/xvm/szxt77_xvm_config/texts.xc",
-		"/D/projects/SZXT77_modpack/develop/0.9.13.4/part-xvm/res_mods/configs/xvm/szxt77_xvm_config/playersPanel.xc",
-		"/D/projects/SZXT77_modpack/develop/0.9.13.4/part-xvm/res_mods/configs/xvm/szxt77_xvm_config/alpha.xc"
+		"/C/LiteStep/modules/xtaskbar-1.1.5.dll"
 	],
 	"find":
 	{
@@ -410,6 +413,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"localname",
+			"8",
 			"module",
 			"modules",
 			"battleTierN",
@@ -462,7 +467,7 @@
 	"groups":
 	[
 		{
-			"selected": 10,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -489,15 +494,12 @@
 							"color_helper.file_palette":
 							[
 							],
-							"color_helper.preview_meta":
-							{
-							},
 							"color_helper.scan":
 							{
 								"current_ext": ".js",
 								"current_syntax": "Babel/JavaScript (Babel)",
 								"enabled": false,
-								"last_updated": 1478937202.87
+								"last_updated": 1479026668.38
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
@@ -508,7 +510,7 @@
 						"translation.y": 462.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -535,15 +537,12 @@
 							"color_helper.file_palette":
 							[
 							],
-							"color_helper.preview_meta":
-							{
-							},
 							"color_helper.scan":
 							{
 								"current_ext": ".js",
 								"current_syntax": "Babel/JavaScript (Babel)",
 								"enabled": false,
-								"last_updated": 1478937202.87
+								"last_updated": 1478986324.51
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
@@ -554,7 +553,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -581,15 +580,12 @@
 							"color_helper.file_palette":
 							[
 							],
-							"color_helper.preview_meta":
-							{
-							},
 							"color_helper.scan":
 							{
 								"current_ext": ".js",
 								"current_syntax": "Babel/JavaScript (Babel)",
 								"enabled": false,
-								"last_updated": 1478937202.87
+								"last_updated": 1479026668.38
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
@@ -598,7 +594,7 @@
 						"translation.y": 1575.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -630,7 +626,7 @@
 								"current_ext": ".js",
 								"current_syntax": "Babel/JavaScript (Babel)",
 								"enabled": false,
-								"last_updated": 1478667596.93
+								"last_updated": 1478986324.51
 							},
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
 						},
@@ -638,7 +634,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
@@ -647,15 +643,19 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14877,
+						"buffer_size": 17722,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14510,
-								14539
+								14588,
+								14588
+							],
+							[
+								14651,
+								14650
 							]
 						],
 						"settings":
@@ -665,15 +665,12 @@
 							"color_helper.file_palette":
 							[
 							],
-							"color_helper.preview_meta":
-							{
-							},
 							"color_helper.scan":
 							{
 								"current_ext": ".jsx",
 								"current_syntax": "Babel/JavaScript (Babel)",
 								"enabled": false,
-								"last_updated": 1478937202.87
+								"last_updated": 1479235843.12
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
@@ -681,14 +678,58 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 8923.0,
+						"translation.y": 9788.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 5,
+					"file": "/D/School/CS 251/page stuff.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1738,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1657,
+								1657
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Free pages: 0 1 2 3 4 5 6 7",
+							"color_helper.box_height": 17,
+							"color_helper.color_scheme": "Packages/User/SublimeLinter/Material Twilight (SL).tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"current_ext": ".txt",
+								"current_syntax": "Text/Plain text",
+								"enabled": false,
+								"last_updated": 1480961783.41
+							},
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
 					"file": "package.json",
 					"semi_transient": false,
 					"settings":
@@ -711,15 +752,12 @@
 							"color_helper.file_palette":
 							[
 							],
-							"color_helper.preview_meta":
-							{
-							},
 							"color_helper.scan":
 							{
 								"current_ext": ".json",
 								"current_syntax": "Materialize/Langs/npm JSON",
 								"enabled": false,
-								"last_updated": 1478937202.87
+								"last_updated": 1478986324.51
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Materialize/Langs/npm JSON.tmLanguage",
@@ -730,11 +768,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "/C/Users/Stephen/Desktop/joeIsBae",
 					"semi_transient": false,
 					"settings":
@@ -752,8 +790,8 @@
 						],
 						"settings":
 						{
-							"color_helper.box_height": 19,
-							"color_helper.color_scheme": "Packages/User/SublimeLinter/Material Twilight (SL).tmTheme",
+							"color_helper.box_height": 17,
+							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"color_helper.file_palette":
 							[
 							],
@@ -762,7 +800,7 @@
 								"current_ext": "",
 								"current_syntax": "Text/Plain text",
 								"enabled": false,
-								"last_updated": 1478569747.69
+								"last_updated": 1478986324.51
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Text/Plain text.tmLanguage"
@@ -771,11 +809,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "app/battleTiersSpecial.js",
 					"semi_transient": false,
 					"settings":
@@ -793,7 +831,7 @@
 						],
 						"settings":
 						{
-							"color_helper.box_height": 15,
+							"color_helper.box_height": 17,
 							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"color_helper.file_palette":
 							[
@@ -803,7 +841,7 @@
 								"current_ext": ".js",
 								"current_syntax": "Babel/JavaScript (Babel)",
 								"enabled": false,
-								"last_updated": 1478653649.78
+								"last_updated": 1478986324.51
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
@@ -814,11 +852,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "app/battleTiers.json",
 					"semi_transient": false,
 					"settings":
@@ -836,7 +874,7 @@
 						],
 						"settings":
 						{
-							"color_helper.box_height": 15,
+							"color_helper.box_height": 17,
 							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"color_helper.file_palette":
 							[
@@ -846,7 +884,7 @@
 								"current_ext": ".json",
 								"current_syntax": "JavaScript/JSON",
 								"enabled": false,
-								"last_updated": 1478569747.69
+								"last_updated": 1478986324.51
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
@@ -857,11 +895,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "public/index.html",
 					"semi_transient": false,
 					"settings":
@@ -879,6 +917,8 @@
 						],
 						"settings":
 						{
+							"color_helper.box_height": 17,
+							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"color_helper.file_palette":
 							[
 							],
@@ -886,19 +926,19 @@
 							{
 								"allowed_colors":
 								[
-									"webcolors",
+									"hsl",
 									"hex_compressed",
 									"hsla",
+									"webcolors",
 									"hex",
 									"rgba",
-									"rgb",
-									"hsl"
+									"rgb"
 								],
 								"compress_hex_output": true,
 								"current_ext": ".html",
 								"current_syntax": "HTML/HTML",
 								"enabled": true,
-								"last_updated": 1475728092.8,
+								"last_updated": 1478986324.51,
 								"scan_completion_scopes":
 								[
 								],
@@ -921,24 +961,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 11,
 					"file": "public/css/screen2ref.wot.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2426,
+						"buffer_size": 2812,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2308,
-								2308
+								1027,
+								1027
 							]
 						],
 						"settings":
@@ -955,66 +995,23 @@
 							],
 							"color_helper.popup_active": false,
 							"color_helper.popup_auto": true,
-							"color_helper.preview_meta":
-							{
-								"1170":
-								[
-									7530821658140381938,
-									7,
-									"hex",
-									6759484703020279427,
-									1
-								],
-								"1238":
-								[
-									-6347896812483196632,
-									7,
-									"hex",
-									6759484703020279427,
-									2
-								],
-								"1308":
-								[
-									-4672918138087879084,
-									7,
-									"hex",
-									6759484703020279427,
-									3
-								],
-								"1344":
-								[
-									-4672918138087879084,
-									7,
-									"hex",
-									6759484703020279427,
-									4
-								],
-								"2187":
-								[
-									-7716369333581838180,
-									7,
-									"hex",
-									6759484703020279427,
-									5
-								]
-							},
 							"color_helper.scan":
 							{
 								"allowed_colors":
 								[
-									"rgb",
 									"hsl",
+									"hex_compressed",
 									"hsla",
-									"rgba",
 									"webcolors",
 									"hex",
-									"hex_compressed"
+									"rgba",
+									"rgb"
 								],
 								"compress_hex_output": true,
 								"current_ext": ".css",
 								"current_syntax": "CSS/CSS",
 								"enabled": true,
-								"last_updated": 1478937202.87,
+								"last_updated": 1478986324.51,
 								"scan_completion_scopes":
 								[
 								],
@@ -1034,14 +1031,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2560.0,
+						"translation.y": 548.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 12,
 					"file": ".gitignore",
 					"semi_transient": false,
 					"settings":
@@ -1059,7 +1056,7 @@
 						],
 						"settings":
 						{
-							"color_helper.box_height": 15,
+							"color_helper.box_height": 17,
 							"color_helper.color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"color_helper.file_palette":
 							[
@@ -1069,7 +1066,7 @@
 								"current_ext": "",
 								"current_syntax": "Materialize/Langs/Git",
 								"enabled": false,
-								"last_updated": 1478653649.78
+								"last_updated": 1478986324.51
 							},
 							"color_scheme": "Packages/User/Color Highlighter/themes/Material Twilight (SL).tmTheme",
 							"syntax": "Packages/Materialize/Langs/Git.tmLanguage"
@@ -1078,11 +1075,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 13,
 					"file": "/D/projects/react-tutorial-master/server.js",
 					"semi_transient": false,
 					"settings":
@@ -1119,11 +1116,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 14,
 					"file": "/D/projects/react-tutorial-master/public/index.html",
 					"semi_transient": false,
 					"settings":
@@ -1183,7 +1180,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 14,
 					"type": "text"
 				}
 			]

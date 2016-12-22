@@ -222,33 +222,64 @@ var PageOptions = React.createClass({
     return (
       <div className="PageOptions_Div">
         <span className="PageOptions_Elem PageOptions_SpanAttribute">
-          Reload
+          <div className="PageOptions_LabelDiv">
+            <span>
+            Reload
+            </span>
+          </div>
         </span>
         <span className="PageOptions_Elem PageOptions_SpanDelim">
-          // 
+          <div className="PageOptions_LabelDiv">
+            <span>
+            //
+            </span>
+          </div>
         </span>
         <span className="PageOptions_Elem PageOptions_SpanModifier">
-          <label>
-            <input type="checkbox" ref="cb_has_bia" class="PageOptions_cbOption" value="1" checked={this.props.options.hasBia} onChange={this.handleChange}/>
-            BIA
+          <label className="PageOptions_LabelModifier">
+            <input id="cb_has_bia" type="checkbox" ref="cb_has_bia" className="PageOptions_cbOption"
+              value="1" checked={this.props.options.hasBia} onChange={this.handleChange}/>
+            <div className="PageOptions_LabelDiv PageOptions_LabelDivCB">
+              <span>
+                BIA
+              </span>
+            </div>
           </label>
         </span>
         <span className="PageOptions_Elem PageOptions_SpanDelim">
-        /
+          <div className="PageOptions_LabelDiv">
+            <span>
+            /
+            </span>
+          </div>
         </span>
         <span className="PageOptions_Elem PageOptions_SpanModifier">
-          <label>
-            <input type="checkbox" ref="cb_has_rammer" class="PageOptions_cbOption" value="1" checked={this.props.options.hasRammer} onChange={this.handleChange}/>
-            Gun Rammer
+          <label className="PageOptions_LabelModifier">
+            <input id="cb_has_rammer" type="checkbox" ref="cb_has_rammer" className="PageOptions_cbOption"
+              value="1" checked={this.props.options.hasRammer} onChange={this.handleChange}/>
+            <div className="PageOptions_LabelDiv PageOptions_LabelDivCB">
+              <span>
+                Gun Rammer
+              </span>
+            </div>
           </label>
         </span>
         <span className="PageOptions_Elem PageOptions_SpanDelim">
-          /
+          <div className="PageOptions_LabelDiv">
+            <span>
+            /
+            </span>
+          </div>
         </span>
         <span className="PageOptions_Elem PageOptions_SpanModifier">
-          <label>
-            <input type="checkbox" ref="cb_has_vents" class="PageOptions_cbOption" value="1" checked={this.props.options.hasVents} onChange={this.handleChange}/>
-            Vents
+          <label className="PageOptions_LabelModifier">
+            <input id="cb_has_vents" type="checkbox" ref="cb_has_vents" className="PageOptions_cbOption"
+              value="1" checked={this.props.options.hasVents} onChange={this.handleChange}/>
+            <div className="PageOptions_LabelDiv PageOptions_LabelDivCB">
+              <span>
+                Vents
+              </span>
+            </div>
           </label>
         </span>
       </div>
@@ -471,10 +502,21 @@ var TableOfTanksRowNation = React.createClass({
 });
 
 var TableOfTanksColumnClass = React.createClass({
+  getNumCols: function(tankClass) {
+    if (tankClass.wgName == "lightTank") return 6;
+    if (tankClass.wgName == "mediumTank") return 7;
+    if (tankClass.wgName == "heavyTank") return 5;
+    if (tankClass.wgName == "SPG") return 4;
+    if (tankClass.wgName == "AT-SPG") return 7;
+    return 6;
+  },
+
   render: function() {
     return (
       <td className="TableOfTanksColumnClass_TD">
-        <ListOfTanksWAttributes nation={this.props.nation} tankClass={this.props.tankClass} options={this.props.options} vehicles={this.props.vehicles}/>
+        <ListOfTanksWAttributes nation={this.props.nation} tankClass={this.props.tankClass} 
+        options={this.props.options} vehicles={this.props.vehicles}
+        numCols={this.getNumCols(this.props.tankClass)}/>
       </td>
     );
   }
@@ -487,13 +529,12 @@ var ListOfTanksWAttributes = React.createClass({
         <TankWAttributes nation={this.props.nation} tankClass={this.props.tankClass} options={this.props.options} vehicle={vehicle}/>
       </td>
     );
-    const TDS_PER_TR = 6;
-    var numTRs = Math.ceil(vehiclesAsTDTankWAttributes.length / TDS_PER_TR);
+    var numTRs = Math.ceil(vehiclesAsTDTankWAttributes.length / this.props.numCols);
     var TDTankWAttributesInTRs = [];
     for (var i = 0; i < numTRs; i++) {
       TDTankWAttributesInTRs.push(
         <tr className="ListOfTanksWAttributes_TR">
-          {vehiclesAsTDTankWAttributes.slice(i*TDS_PER_TR,i*TDS_PER_TR+TDS_PER_TR)}
+          {vehiclesAsTDTankWAttributes.slice(i*this.props.numCols,(i+1)*this.props.numCols)}
         </tr>
       );
     }

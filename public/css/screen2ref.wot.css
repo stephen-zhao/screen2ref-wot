@@ -52,17 +52,47 @@ body {
 }
 
 .PageOptions_Div {
-    margin: 1rem;
+    margin: 0rem;
     display: block;
     position: absolute;
     left: 8rem;
-    top: -0.3rem;
+    top: 0rem;
 }
 
 .PageOptions_Elem {
     display: inline-block;
     font-size: 2.4rem;
-    margin: 0rem 2rem;
+    height: 5rem;
+}
+
+.PageOptions_LabelModifier {
+    display: block;
+    height: 100%;
+}
+
+.PageOptions_cbOption {
+    display: none;
+}
+
+.PageOptions_LabelDiv {
+    padding: 0rem 2rem;
+    height: 100%;
+}
+
+.PageOptions_LabelDivCB {
+    cursor: pointer;
+}
+
+.PageOptions_LabelDiv > span {
+    line-height: 4.8rem;
+}
+
+.PageOptions_cbOption:checked + div {
+    background: #244A24;
+}
+
+.PageOptions_cbOption + div:hover {
+    background: #345F34;
 }
 
 .BattleTierSelector_Div {
