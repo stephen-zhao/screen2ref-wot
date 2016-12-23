@@ -49,8 +49,6 @@ app.get('/api/vehicleTopConfigs', function(req, res) {
     if (err) throw err;
     connection.end(function(err) {
       var configDict = {};
-      console.log('DEBUG tank_id:', rows[2].tank_id)
-      console.log('DEBUG profile_data:', rows[2].profile_data.toString());
       for (var i = 0; i < rows.length; i++) {
         configDict[rows[i].tank_id] = JSON.parse(rows[i].profile_data.toString());
       }
@@ -59,6 +57,20 @@ app.get('/api/vehicleTopConfigs', function(req, res) {
   });
   // TODO: make this API endpoint work, then make client pull from this API endpoint
 });
+app.get('/api/vehicleData', function(req, res) {
+  var connection = mysql.createConnection(config.dbConnectionOptions);
+  connection.connect();
+  var sql = 
+      'SELECT vehicle_aggregate_data FROM vehicle_aggregate';
+  connection.query(sql, [],
+  function(err, rows, fields) {
+    if (err) throw err;
+    connection.end(function(err) {
+      console.log(rows[0].vehicle_aggregate_data.toString());
+      res.json(JSON.parse(rows[0].vehicle_aggregate_data.toString()));
+    })
+  })
+})
 // TODO: more app routes
 
 // update tank profile database on start if set

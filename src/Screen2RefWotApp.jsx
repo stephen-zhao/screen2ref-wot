@@ -54,7 +54,7 @@ var Screen2RefWotApp = React.createClass({
   },
 
   componentDidMount: function() {
-    this.wgapiVehiclesReq = $.get('https://api.worldoftanks.com/wot/encyclopedia/vehicles/?application_id=7c6bb9f5b4ebb263c4fecfe190103f40', function(res) {
+    this.wgapiVehiclesReq = $.get('/api/vehicleData', function(res) {
       this.setState({
         tanksData: res
       });
